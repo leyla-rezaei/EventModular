@@ -1,0 +1,15 @@
+{
+  "solution": {
+    "path": "EventModular.slnx",
+    "projects": [
+      "src\\Client\\EventModular.Client.Core\\EventModular.Client.Core.csproj",
+      "src\\Client\\EventModular.Client.Web\\EventModular.Client.Web.csproj",
+	  "src\\Server\\EventModular.Server.AppHost\\EventModular.Server.AppHost.csproj",
+      "src\\Server\\EventModular.Server.Api\\EventModular.Server.Api.csproj",
+	  "src\\Server\\EventModular.Server.Shared\\EventModular.Server.Shared.csproj",
+      "src\\Server\\EventModular.Server.Web\\EventModular.Server.Web.csproj",
+      "src\\Shared\\EventModular.Shared.csproj",
+      "src\\Tests\\EventModular.Tests.csproj"
+    ]
+  }
+}
