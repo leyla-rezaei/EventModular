@@ -1,4 +1,7 @@
-﻿namespace EventModular.Server.Api;
+﻿using EventModular.Server.Api.Extensions;
+using EventModular.Shared.Extensions;
+
+namespace EventModular.Server.Api;
 
 public static partial class Program
 {
@@ -9,20 +12,17 @@ public static partial class Program
         AppEnvironment.Set(builder.Environment.EnvironmentName);
 
         builder.Configuration.AddSharedConfigurations();
+        builder.Configuration.AddModuleConfigurations();
 
-        builder.WebHost.UseSentry(configureOptions: options => builder.Configuration.GetRequiredSection("Logging:Sentry").Bind(options));
+        builder.WebHost.UseSentry(configureOptions: options =>
+            builder.Configuration.GetRequiredSection("Logging:Sentry").Bind(options));
 
         builder.Services.AddSharedProjectServices(builder.Configuration);
         builder.AddServerApiProjectServices();
+        builder.Services.RegisterModules(builder.Configuration);
 
         var app = builder.Build();
-
-        if (builder.Environment.IsDevelopment())
-        {
-            await using var scope = app.Services.CreateAsyncScope();
-            var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-            await dbContext.Database.EnsureCreatedAsync(); // It's recommended to start using ef-core migrations.
-        }
+        await DataInitializer.ApplyAllMigrationsAsync(app.Services);
 
         app.ConfigureMiddlewares();
 
