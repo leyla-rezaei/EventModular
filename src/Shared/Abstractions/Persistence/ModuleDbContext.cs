@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Reflection;
-using EventModular.Shared.Entities;
 using EventModular.Shared.Extensions;
+using EventModular.Shared.Base.Entities;
 
 namespace EventModular.Shared.Abstractions.Persistence;
 public abstract class ModuleDbContext : DbContext

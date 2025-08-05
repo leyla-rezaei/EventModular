@@ -1,4 +1,4 @@
-﻿namespace EventModular.Shared.Entities;
+﻿namespace EventModular.Shared.Base.Entities;
 public interface IBaseEntity
 {
     public Guid Id { get; set; }
