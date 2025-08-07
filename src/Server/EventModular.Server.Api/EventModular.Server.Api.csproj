@@ -82,6 +82,8 @@
 
     <ItemGroup>
         <ProjectReference Include="..\EventModular.Server.Shared\EventModular.Server.Shared.csproj" />
+        <ProjectReference Include="..\Modules\Events\EventModular.Server.Modules.Events.Api\EventModular.Server.Modules.Events.Api.csproj" />
+        <ProjectReference Include="..\Modules\Events\EventModular.Server.Modules.Events.Infrastructure\EventModular.Server.Modules.Events.Infrastructure.csproj" />
         <ProjectReference Include="..\Modules\Organizer\EventModular.Server.Modules.Organizer.Api\EventModular.Server.Modules.Organizer.Api.csproj" />
         <ProjectReference Include="..\Modules\Organizer\EventModular.Server.Modules.Organizer.Infrastructure\EventModular.Server.Modules.Organizer.Infrastructure.csproj" />
     </ItemGroup>
