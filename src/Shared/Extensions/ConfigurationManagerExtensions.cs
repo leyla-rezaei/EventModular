@@ -4,8 +4,13 @@ public static class ConfigurationManagerExtensions
 {
     public static void AddModuleConfigurations(this ConfigurationManager configuration)
     {
-        var moduleSettings = Directory
-            .GetFiles(Path.Combine(Directory.GetCurrentDirectory(), "Modules"), "appsettings.*.json", SearchOption.AllDirectories);
+        var projectRoot = Directory.GetCurrentDirectory();
+        var modulesPath = Path.GetFullPath(Path.Combine(projectRoot, "..", "Modules"));
+
+        if (!Directory.Exists(modulesPath))
+            throw new DirectoryNotFoundException($"Modules folder not found at path: {modulesPath}");
+
+        var moduleSettings = Directory.GetFiles(modulesPath, "appsettings.*.json", SearchOption.AllDirectories);
 
         foreach (var settingFile in moduleSettings)
         {
