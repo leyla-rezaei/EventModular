@@ -13,4 +13,5 @@ public static class SchemaConsts
     public const string Currency = "currency";
     public const string Language = "language";
     public const string Localization = "localization";
+    public const string Post = "post";
 }
