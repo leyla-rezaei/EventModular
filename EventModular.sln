@@ -79,6 +79,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventModular.Server.Modules
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Categories", "Categories", "{CCD4CA6A-5539-49E4-9497-28979EED28E6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventModular.Server.Modules.Categories.Api", "src\Server\Modules\Categories\EventModular.Server.Modules.Categories.Api\EventModular.Server.Modules.Categories.Api.csproj", "{1DC54346-1E9D-47E0-8BF6-64E4213304EE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventModular.Server.Modules.Categories.Application", "src\Server\Modules\Categories\EventModular.Server.Modules.Categories.Application\EventModular.Server.Modules.Categories.Application.csproj", "{053EB781-0B50-4705-AE72-75E732B8E4CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventModular.Server.Modules.Categories.Infrastructure", "src\Server\Modules\Categories\EventModular.Server.Modules.Categories.Infrastructure\EventModular.Server.Modules.Categories.Infrastructure.csproj", "{B2F3E334-A9D5-4D67-AABE-4B509EA49306}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventModular.Server.Modules.Categories.Domain", "src\Server\Modules\Categories\EventModular.Server.Modules.Categories.Domain\EventModular.Server.Modules.Categories.Domain.csproj", "{1B48C0E1-9ADC-43CB-9585-DF2D3C76C23E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -159,6 +167,22 @@ Global
 		{8590D8E7-EAB9-4FB6-8190-A14E1B8F3F93}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8590D8E7-EAB9-4FB6-8190-A14E1B8F3F93}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8590D8E7-EAB9-4FB6-8190-A14E1B8F3F93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DC54346-1E9D-47E0-8BF6-64E4213304EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DC54346-1E9D-47E0-8BF6-64E4213304EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DC54346-1E9D-47E0-8BF6-64E4213304EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DC54346-1E9D-47E0-8BF6-64E4213304EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{053EB781-0B50-4705-AE72-75E732B8E4CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{053EB781-0B50-4705-AE72-75E732B8E4CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{053EB781-0B50-4705-AE72-75E732B8E4CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{053EB781-0B50-4705-AE72-75E732B8E4CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2F3E334-A9D5-4D67-AABE-4B509EA49306}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2F3E334-A9D5-4D67-AABE-4B509EA49306}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2F3E334-A9D5-4D67-AABE-4B509EA49306}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2F3E334-A9D5-4D67-AABE-4B509EA49306}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B48C0E1-9ADC-43CB-9585-DF2D3C76C23E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B48C0E1-9ADC-43CB-9585-DF2D3C76C23E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B48C0E1-9ADC-43CB-9585-DF2D3C76C23E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B48C0E1-9ADC-43CB-9585-DF2D3C76C23E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -188,10 +212,14 @@ Global
 		{0E08CE6F-8CF5-43D8-9F5A-E75F582CF88E} = {E08DE4A0-3AA1-44C3-96E8-396ED27A349B}
 		{8590D8E7-EAB9-4FB6-8190-A14E1B8F3F93} = {E08DE4A0-3AA1-44C3-96E8-396ED27A349B}
 		{CCD4CA6A-5539-49E4-9497-28979EED28E6} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{1DC54346-1E9D-47E0-8BF6-64E4213304EE} = {CCD4CA6A-5539-49E4-9497-28979EED28E6}
+		{053EB781-0B50-4705-AE72-75E732B8E4CC} = {CCD4CA6A-5539-49E4-9497-28979EED28E6}
+		{B2F3E334-A9D5-4D67-AABE-4B509EA49306} = {CCD4CA6A-5539-49E4-9497-28979EED28E6}
+		{1B48C0E1-9ADC-43CB-9585-DF2D3C76C23E} = {CCD4CA6A-5539-49E4-9497-28979EED28E6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {61F7FB11-1E47-470C-91E2-47F8143E1572}
-		RESX_CodeReferences = {"Items":[{"Expression":"\\W($File.$Key)\\W","Extensions":".cs,.xaml,.cshtml,.razor","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"\\W($File.$Key)\\W","Extensions":".vbhtml","IsCaseSensitive":false,"SingleLineComment":null},{"Expression":"ResourceManager.GetString\\(\"($Key)\"\\)","Extensions":".cs","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"typeof\\((\\w+\\.)*($File)\\).+\"($Key)\"|\"($Key)\".+typeof\\((\\w+\\.)*($File)\\)","Extensions":".cs","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"\\W($Key)\\W","Extensions":".vb","IsCaseSensitive":false,"SingleLineComment":"'"},{"Expression":"\\W($File::$Key)\\W","Extensions":".cpp,.c,.hxx,.h","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"&lt;%\\$\\s+Resources:\\s*($File)\\s*,\\s*($Key)\\s*%&gt;","Extensions":".aspx,.ascx,.master","IsCaseSensitive":true,"SingleLineComment":null},{"Expression":"StringResourceKey\\.($Key)","Extensions":".cs","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"\\.($Key)","Extensions":".ts,.html","IsCaseSensitive":true,"SingleLineComment":"\/\/"}]}
 		RESX_NeutralResourcesLanguage = en-US
+		RESX_CodeReferences = {"Items":[{"Expression":"\\W($File.$Key)\\W","Extensions":".cs,.xaml,.cshtml,.razor","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"\\W($File.$Key)\\W","Extensions":".vbhtml","IsCaseSensitive":false,"SingleLineComment":null},{"Expression":"ResourceManager.GetString\\(\"($Key)\"\\)","Extensions":".cs","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"typeof\\((\\w+\\.)*($File)\\).+\"($Key)\"|\"($Key)\".+typeof\\((\\w+\\.)*($File)\\)","Extensions":".cs","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"\\W($Key)\\W","Extensions":".vb","IsCaseSensitive":false,"SingleLineComment":"'"},{"Expression":"\\W($File::$Key)\\W","Extensions":".cpp,.c,.hxx,.h","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"&lt;%\\$\\s+Resources:\\s*($File)\\s*,\\s*($Key)\\s*%&gt;","Extensions":".aspx,.ascx,.master","IsCaseSensitive":true,"SingleLineComment":null},{"Expression":"StringResourceKey\\.($Key)","Extensions":".cs","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"\\.($Key)","Extensions":".ts,.html","IsCaseSensitive":true,"SingleLineComment":"\/\/"}]}
+		SolutionGuid = {61F7FB11-1E47-470C-91E2-47F8143E1572}
 	EndGlobalSection
 EndGlobal
