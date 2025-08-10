@@ -15,6 +15,9 @@ namespace EventModular.Server.Modules.Events.Infrastructure.Migrations
                 name: "event");
 
             migrationBuilder.EnsureSchema(
+                name: "Event");
+
+            migrationBuilder.EnsureSchema(
                 name: "localization");
 
             migrationBuilder.CreateTable(
@@ -40,6 +43,25 @@ namespace EventModular.Server.Modules.Events.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Event", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EventCategory",
+                schema: "Event",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    EventId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreationDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    ModificationDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    IsArchived = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    LastModificationById = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EventCategory", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -80,6 +102,10 @@ namespace EventModular.Server.Modules.Events.Infrastructure.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "EventCategory",
+                schema: "Event");
+
             migrationBuilder.DropTable(
                 name: "EventLocalization",
                 schema: "localization");

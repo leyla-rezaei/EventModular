@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EventModular.Server.Modules.Events.Infrastructure.Migrations
 {
     [DbContext(typeof(EventDbContext))]
-    [Migration("20250807163649_Initial")]
+    [Migration("20250810093019_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -76,6 +76,38 @@ namespace EventModular.Server.Modules.Events.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Event", "event");
+                });
+
+            modelBuilder.Entity("EventModular.Server.Modules.Events.Domain.Entities.EventCategory", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CategoryId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CreatedById")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("CreationDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<Guid>("EventId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsArchived")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid?>("LastModificationById")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset?>("ModificationDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EventCategory", "Event");
                 });
 
             modelBuilder.Entity("EventModular.Server.Modules.Events.Domain.Entities.EventLocalization", b =>

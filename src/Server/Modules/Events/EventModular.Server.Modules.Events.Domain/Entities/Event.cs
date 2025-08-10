@@ -1,6 +1,6 @@
-﻿using EventModular.Server.Modules.Events.Domain.Enums;
-using EventModular.Shared.Base.Entities;
+﻿using EventModular.Shared.Base.Entities;
 using EventModular.Shared.Constants;
+using EventModular.Shared.Enums.Event;
 
 namespace EventModular.Server.Modules.Events.Domain.Entities;
 
