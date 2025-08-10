@@ -2,7 +2,7 @@
 
 namespace EventModular.Shared.Base.Entities;
 
-[Table(nameof(Provience), Schema = nameof(SchemaConsts.@base))]
+[Table(nameof(Provience), Schema = nameof(SchemaConsts.Base))]
 
 public class Provience : BaseEntity
 {

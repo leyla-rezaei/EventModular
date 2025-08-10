@@ -2,7 +2,7 @@
 
 namespace EventModular.Shared.Base.Entities;
 
-[Table(nameof(Country), Schema = nameof(SchemaConsts.@base))]
+[Table(nameof(Country), Schema = nameof(SchemaConsts.Base))]
 public class Country : BaseEntity
 {
     public string Name { get; set; }

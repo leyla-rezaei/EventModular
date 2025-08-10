@@ -3,6 +3,7 @@ using EventModular.Server.Modules.Comments.Application.Mappers;
 using EventModular.Server.Modules.Comments.Infrastructure.Persistence;
 using EventModular.Server.Modules.Events.Infrastructure.Persistence;
 using EventModular.Server.Modules.Organizer.Infrastructure.Persistence;
+using EventModular.Server.Modules.Subdomains.Infrastructure.Persistence;
 using Microsoft.Data.SqlClient;
 
 namespace EventModular.Server.Api.Extensions;
@@ -35,6 +36,12 @@ public static class ModuleRegistration
         services.AddDbContext<CommentDbContext>(options =>
         {
             var connectionString = ReplaceCatalog(baseConnection, "CommentDb");
+            options.UseSqlServer(connectionString);
+        });
+
+        services.AddDbContext<SubdomainDbContext>(options =>
+        {
+            var connectionString = ReplaceCatalog(baseConnection, "SubdomainDb");
             options.UseSqlServer(connectionString);
         });
 
