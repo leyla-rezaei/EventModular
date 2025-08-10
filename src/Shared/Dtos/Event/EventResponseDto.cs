@@ -1,4 +1,6 @@
-﻿namespace EventModular.Shared.Dtos.Event;
+﻿using EventModular.Shared.Enums.Event;
+
+namespace EventModular.Shared.Dtos.Event;
 public class EventResponseDto
 {
     public Guid Id { get; set; }
@@ -9,6 +11,8 @@ public class EventResponseDto
     public string Location { get; set; } = string.Empty;
     public string DefaultLanguage { get; set; } = string.Empty;
     public string DefaultCurrency { get; set; } = string.Empty;
+    public EventStatus EventStatus { get; set; } 
+
     public List<EventLocalizationDto>? Localizations { get; set; } = new();
 
 }
