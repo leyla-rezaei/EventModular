@@ -84,6 +84,8 @@
         <ProjectReference Include="..\EventModular.Server.Shared\EventModular.Server.Shared.csproj" />
         <ProjectReference Include="..\Modules\Categories\EventModular.Server.Modules.Categories.Api\EventModular.Server.Modules.Categories.Api.csproj" />
         <ProjectReference Include="..\Modules\Categories\EventModular.Server.Modules.Categories.Infrastructure\EventModular.Server.Modules.Categories.Infrastructure.csproj" />
+        <ProjectReference Include="..\Modules\Comments\EventModular.Server.Modules.Comments.Api\EventModular.Server.Modules.Comments.Api.csproj" />
+        <ProjectReference Include="..\Modules\Comments\EventModular.Server.Modules.Comments.Infrastructure\EventModular.Server.Modules.Comments.Infrastructure.csproj" />
         <ProjectReference Include="..\Modules\Events\EventModular.Server.Modules.Events.Api\EventModular.Server.Modules.Events.Api.csproj" />
         <ProjectReference Include="..\Modules\Events\EventModular.Server.Modules.Events.Infrastructure\EventModular.Server.Modules.Events.Infrastructure.csproj" />
         <ProjectReference Include="..\Modules\Organizer\EventModular.Server.Modules.Organizer.Api\EventModular.Server.Modules.Organizer.Api.csproj" />
