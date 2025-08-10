@@ -2,7 +2,7 @@
 
 namespace EventModular.Shared.Base.Entities;
 
-[Table(nameof(Language), Schema = nameof(SchemaConsts.@base))]
+[Table(nameof(Language), Schema = nameof(SchemaConsts.Base))]
 public class Language : BaseEntity
 {
     public string Country { get; set; }

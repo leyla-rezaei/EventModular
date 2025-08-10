@@ -2,6 +2,7 @@
 using EventModular.Server.Modules.Comments.Infrastructure.Persistence;
 using EventModular.Server.Modules.Events.Infrastructure.Persistence;
 using EventModular.Server.Modules.Organizer.Infrastructure.Persistence;
+using EventModular.Server.Modules.Subdomains.Infrastructure.Persistence;
 
 namespace EventModular.Server.Api.Data;
 
@@ -18,6 +19,7 @@ public static class DataInitializer
             scope.ServiceProvider.GetRequiredService<EventDbContext>(),
             scope.ServiceProvider.GetRequiredService<CategoryDbContext>(),
             scope.ServiceProvider.GetRequiredService<CommentDbContext>(),
+            scope.ServiceProvider.GetRequiredService<SubdomainDbContext>(),
 
         };
 
