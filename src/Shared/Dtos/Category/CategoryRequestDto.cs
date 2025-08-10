@@ -3,7 +3,7 @@
 namespace EventModular.Shared.Dtos.Category;
 public class CategoryRequestDto
 {
-    public CategoryTypeDto CategoryType { get; set; }
+    public CategoryType CategoryType { get; set; }
 
     public List<CategoryLocalizationDto>? Localizations { get; set; }
 }

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EventModular.Server.Modules.Categories.Infrastructure.Migrations
 {
     [DbContext(typeof(CategoryDbContext))]
-    [Migration("20250808130256_Initial")]
+    [Migration("20250810082243_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -106,74 +106,6 @@ namespace EventModular.Server.Modules.Categories.Infrastructure.Migrations
                     b.ToTable("CategoryLocalization", "Localization");
                 });
 
-            modelBuilder.Entity("EventModular.Server.Modules.Categories.Domain.Entities.EventCategory", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("CategoryId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("CreatedById")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTimeOffset>("CreationDate")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<Guid>("EventId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("IsArchived")
-                        .HasColumnType("bit");
-
-                    b.Property<Guid?>("LastModificationById")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTimeOffset?>("ModificationDate")
-                        .HasColumnType("datetimeoffset");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("EventCategory", "Event");
-                });
-
-            modelBuilder.Entity("EventModular.Server.Modules.Categories.Domain.Entities.PostCategory", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("CategoryId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("CreatedById")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTimeOffset>("CreationDate")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<bool>("IsArchived")
-                        .HasColumnType("bit");
-
-                    b.Property<Guid?>("LastModificationById")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTimeOffset?>("ModificationDate")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<Guid>("PostId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("PostCategory", "Post");
-                });
-
             modelBuilder.Entity("EventModular.Server.Modules.Categories.Domain.Entities.Category", b =>
                 {
                     b.HasOne("EventModular.Server.Modules.Categories.Domain.Entities.Category", "ParentCategory")
@@ -187,28 +119,6 @@ namespace EventModular.Server.Modules.Categories.Infrastructure.Migrations
                 {
                     b.HasOne("EventModular.Server.Modules.Categories.Domain.Entities.Category", "Category")
                         .WithMany("Localizations")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("EventModular.Server.Modules.Categories.Domain.Entities.EventCategory", b =>
-                {
-                    b.HasOne("EventModular.Server.Modules.Categories.Domain.Entities.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("EventModular.Server.Modules.Categories.Domain.Entities.PostCategory", b =>
-                {
-                    b.HasOne("EventModular.Server.Modules.Categories.Domain.Entities.Category", "Category")
-                        .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

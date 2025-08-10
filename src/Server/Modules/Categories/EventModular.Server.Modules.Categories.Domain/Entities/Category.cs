@@ -1,6 +1,6 @@
-﻿using EventModular.Server.Modules.Categories.Domain.Enums;
-using EventModular.Shared.Base.Entities;
+﻿using EventModular.Shared.Base.Entities;
 using EventModular.Shared.Constants;
+using EventModular.Shared.Enums.Category;
 
 namespace EventModular.Server.Modules.Categories.Domain.Entities;
 [Table(nameof(Category), Schema = nameof(SchemaConsts.Category))]

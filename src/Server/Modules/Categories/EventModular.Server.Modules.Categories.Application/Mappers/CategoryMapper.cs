@@ -17,7 +17,7 @@ public static class CategoryMapper
                 Id = category.ParentCategory.Id,
                 Title = category.ParentCategory.Localizations.FirstOrDefault()?.Title
             },
-            CategoryType = (CategoryTypeDto)category.CategoryType,
+            CategoryType = (CategoryType)category.CategoryType,
             Localizations = category.Localizations
                 .Select(x => new CategoryLocalizationDto
                 {
