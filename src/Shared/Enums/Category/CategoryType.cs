@@ -1,6 +1,7 @@
 ﻿namespace EventModular.Shared.Enums.Category;
-public enum CategoryTypeDto
+public enum CategoryType
 {
     Event,
     Post,
+    Course,
 }
