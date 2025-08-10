@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+    <PackageReference Include="AutoMapper" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EventModular.Server.Modules.Comments.Application\EventModular.Server.Modules.Comments.Application.csproj" />
+    <ProjectReference Include="..\EventModular.Server.Modules.Comments.Infrastructure\EventModular.Server.Modules.Comments.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
