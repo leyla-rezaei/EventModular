@@ -3,6 +3,7 @@ using EventModular.Server.Modules.Comments.Application.Mappers;
 using EventModular.Server.Modules.Comments.Infrastructure.Persistence;
 using EventModular.Server.Modules.Events.Infrastructure.Persistence;
 using EventModular.Server.Modules.Organizer.Infrastructure.Persistence;
+using EventModular.Server.Modules.Posts.Infrastructure.Persistence;
 using EventModular.Server.Modules.Subdomains.Infrastructure.Persistence;
 using Microsoft.Data.SqlClient;
 
@@ -44,6 +45,13 @@ public static class ModuleRegistration
             var connectionString = ReplaceCatalog(baseConnection, "SubdomainDb");
             options.UseSqlServer(connectionString);
         });
+
+        services.AddDbContext<PostDbContext>(options =>
+        {
+            var connectionString = ReplaceCatalog(baseConnection, "PostDb");
+            options.UseSqlServer(connectionString);
+        });
+
 
         // RegisterAutoMappers
         services.AddAutoMapper(typeof(CommentProfile).Assembly);
