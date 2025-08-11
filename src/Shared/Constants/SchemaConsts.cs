@@ -14,7 +14,8 @@ public static class SchemaConsts
     public const string Language = "language";
     public const string Localization = "localization";
     public const string Post = "post";
-    public const string Comment = "comment"; 
+    public const string Comment = "comment";
     public const string Subdomain = "subdomain";
+    public const string Affiliate = "affiliate";
 
-} 
+}

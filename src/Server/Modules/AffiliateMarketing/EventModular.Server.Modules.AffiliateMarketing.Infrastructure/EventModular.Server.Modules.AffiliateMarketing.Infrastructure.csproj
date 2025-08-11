@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-    <ItemGroup>
+ <ItemGroup>
         <PackageReference Include="Microsoft.EntityFrameworkCore" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
             <PrivateAssets>all</PrivateAssets>
@@ -17,9 +17,8 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
     </ItemGroup>
-    <ItemGroup>
-      <ProjectReference Include="..\..\..\..\Shared\EventModular.Shared.csproj" />
-      <ProjectReference Include="..\..\Subdomains\EventModular.Server.Modules.Subdomains.Domain\EventModular.Server.Modules.Subdomains.Domain.csproj" />
-      <ProjectReference Include="..\EventModular.Server.Modules.Posts.Domain\EventModular.Server.Modules.Posts.Domain.csproj" />
-    </ItemGroup>
+ <ItemGroup>
+   <ProjectReference Include="..\..\..\..\Shared\EventModular.Shared.csproj" />
+   <ProjectReference Include="..\EventModular.Server.Modules.AffiliateMarketing.Domain\EventModular.Server.Modules.AffiliateMarketing.Domain.csproj" />
+ </ItemGroup>
 </Project>
