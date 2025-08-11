@@ -97,7 +97,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventModular.Server.Modules
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventModular.Server.Modules.Comments.Infrastructure", "src\Server\Modules\Comments\EventModular.Server.Modules.Comments.Infrastructure\EventModular.Server.Modules.Comments.Infrastructure.csproj", "{7810D0A6-5150-4748-AE0D-67CC2CCCAAFB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Post", "Post", "{73D36295-DCF3-4648-8DB0-E7D565C04C66}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Posts", "Posts", "{73D36295-DCF3-4648-8DB0-E7D565C04C66}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventModular.Server.Modules.Posts.Api", "src\Server\Modules\Posts\EventModular.Server.Modules.Posts.Api\EventModular.Server.Modules.Posts.Api.csproj", "{9683FD5B-6A51-41EF-BF85-933BF535CDE4}"
 EndProject
@@ -116,6 +116,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventModular.Server.Modules.Subdomains.Domain", "src\Server\Modules\Subdomains\EventModular.Server.Modules.Subdomains.Domain\EventModular.Server.Modules.Subdomains.Domain.csproj", "{DE33D9DF-0BAE-416D-880A-3E24B508F9BA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventModular.Server.Modules.Subdomains.Infrastructure", "src\Server\Modules\Subdomains\EventModular.Server.Modules.Subdomains.Infrastructure\EventModular.Server.Modules.Subdomains.Infrastructure.csproj", "{72094B0C-338C-48A1-A34D-D0C449285A70}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AffiliateMarketing", "AffiliateMarketing", "{CA46E21B-E90E-4AFB-B815-EEDEA977001D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -309,10 +311,11 @@ Global
 		{10B75F42-C1D1-4EC3-BFF7-163E82B9D6A0} = {4873B21D-1FFB-4277-95F3-2D9587AC0D73}
 		{DE33D9DF-0BAE-416D-880A-3E24B508F9BA} = {4873B21D-1FFB-4277-95F3-2D9587AC0D73}
 		{72094B0C-338C-48A1-A34D-D0C449285A70} = {4873B21D-1FFB-4277-95F3-2D9587AC0D73}
+		{CA46E21B-E90E-4AFB-B815-EEDEA977001D} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		RESX_NeutralResourcesLanguage = en-US
-		RESX_CodeReferences = {"Items":[{"Expression":"\\W($File.$Key)\\W","Extensions":".cs,.xaml,.cshtml,.razor","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"\\W($File.$Key)\\W","Extensions":".vbhtml","IsCaseSensitive":false,"SingleLineComment":null},{"Expression":"ResourceManager.GetString\\(\"($Key)\"\\)","Extensions":".cs","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"typeof\\((\\w+\\.)*($File)\\).+\"($Key)\"|\"($Key)\".+typeof\\((\\w+\\.)*($File)\\)","Extensions":".cs","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"\\W($Key)\\W","Extensions":".vb","IsCaseSensitive":false,"SingleLineComment":"'"},{"Expression":"\\W($File::$Key)\\W","Extensions":".cpp,.c,.hxx,.h","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"&lt;%\\$\\s+Resources:\\s*($File)\\s*,\\s*($Key)\\s*%&gt;","Extensions":".aspx,.ascx,.master","IsCaseSensitive":true,"SingleLineComment":null},{"Expression":"StringResourceKey\\.($Key)","Extensions":".cs","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"\\.($Key)","Extensions":".ts,.html","IsCaseSensitive":true,"SingleLineComment":"\/\/"}]}
 		SolutionGuid = {61F7FB11-1E47-470C-91E2-47F8143E1572}
+		RESX_CodeReferences = {"Items":[{"Expression":"\\W($File.$Key)\\W","Extensions":".cs,.xaml,.cshtml,.razor","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"\\W($File.$Key)\\W","Extensions":".vbhtml","IsCaseSensitive":false,"SingleLineComment":null},{"Expression":"ResourceManager.GetString\\(\"($Key)\"\\)","Extensions":".cs","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"typeof\\((\\w+\\.)*($File)\\).+\"($Key)\"|\"($Key)\".+typeof\\((\\w+\\.)*($File)\\)","Extensions":".cs","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"\\W($Key)\\W","Extensions":".vb","IsCaseSensitive":false,"SingleLineComment":"'"},{"Expression":"\\W($File::$Key)\\W","Extensions":".cpp,.c,.hxx,.h","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"&lt;%\\$\\s+Resources:\\s*($File)\\s*,\\s*($Key)\\s*%&gt;","Extensions":".aspx,.ascx,.master","IsCaseSensitive":true,"SingleLineComment":null},{"Expression":"StringResourceKey\\.($Key)","Extensions":".cs","IsCaseSensitive":true,"SingleLineComment":"\/\/"},{"Expression":"\\.($Key)","Extensions":".ts,.html","IsCaseSensitive":true,"SingleLineComment":"\/\/"}]}
+		RESX_NeutralResourcesLanguage = en-US
 	EndGlobalSection
 EndGlobal
