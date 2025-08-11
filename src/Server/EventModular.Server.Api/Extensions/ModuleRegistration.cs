@@ -1,4 +1,5 @@
-﻿using EventModular.Server.Modules.Categories.Infrastructure.Persistence;
+﻿using EventModular.Server.Modules.AffiliateMarketing.Infrastructure.Persistence;
+using EventModular.Server.Modules.Categories.Infrastructure.Persistence;
 using EventModular.Server.Modules.Comments.Application.Mappers;
 using EventModular.Server.Modules.Comments.Infrastructure.Persistence;
 using EventModular.Server.Modules.Events.Infrastructure.Persistence;
@@ -49,6 +50,12 @@ public static class ModuleRegistration
         services.AddDbContext<PostDbContext>(options =>
         {
             var connectionString = ReplaceCatalog(baseConnection, "PostDb");
+            options.UseSqlServer(connectionString);
+        });
+
+        services.AddDbContext<AffiliateDbContext>(options =>
+        {
+            var connectionString = ReplaceCatalog(baseConnection, "AffiliateDb");
             options.UseSqlServer(connectionString);
         });
 

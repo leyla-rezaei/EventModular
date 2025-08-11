@@ -1,4 +1,4 @@
-﻿using EventModular.Server.Modules.Subdomains.Domain.Entities;
+﻿using EventModular.Server.Modules.Posts.Domain.Entities;
 using EventModular.Shared.Abstractions.Persistence;
 using EventModular.Shared.Base.Entities;
 using EventModular.Shared.Extensions;
@@ -15,7 +15,7 @@ public class PostDbContext : ModuleDbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        var entitiesAssembly = typeof(Subdomain).Assembly;
+        var entitiesAssembly = typeof(Post).Assembly;
 
         modelBuilder.RegisterAllEntities<IBaseEntity>(entitiesAssembly);
 
