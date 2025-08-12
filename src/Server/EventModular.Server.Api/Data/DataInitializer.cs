@@ -1,6 +1,7 @@
 ﻿using EventModular.Server.Modules.AffiliateMarketing.Infrastructure.Persistence;
 using EventModular.Server.Modules.Categories.Infrastructure.Persistence;
 using EventModular.Server.Modules.Comments.Infrastructure.Persistence;
+using EventModular.Server.Modules.Discounts.Infrastructure.Persistence;
 using EventModular.Server.Modules.Events.Infrastructure.Persistence;
 using EventModular.Server.Modules.Organizer.Infrastructure.Persistence;
 using EventModular.Server.Modules.Posts.Infrastructure.Persistence;
@@ -24,7 +25,7 @@ public static class DataInitializer
             scope.ServiceProvider.GetRequiredService<SubdomainDbContext>(),
             scope.ServiceProvider.GetRequiredService<PostDbContext>(),
             scope.ServiceProvider.GetRequiredService<AffiliateDbContext>(),
-
+            scope.ServiceProvider.GetRequiredService<DiscountDbContext>(), 
         };
 
         foreach (var context in contexts)
