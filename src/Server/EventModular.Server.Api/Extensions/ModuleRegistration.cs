@@ -2,6 +2,7 @@
 using EventModular.Server.Modules.Categories.Infrastructure.Persistence;
 using EventModular.Server.Modules.Comments.Application.Mappers;
 using EventModular.Server.Modules.Comments.Infrastructure.Persistence;
+using EventModular.Server.Modules.Discounts.Infrastructure.Persistence;
 using EventModular.Server.Modules.Events.Infrastructure.Persistence;
 using EventModular.Server.Modules.Organizer.Infrastructure.Persistence;
 using EventModular.Server.Modules.Posts.Infrastructure.Persistence;
@@ -59,6 +60,12 @@ public static class ModuleRegistration
             options.UseSqlServer(connectionString);
         });
 
+        services.AddDbContext<DiscountDbContext>(options =>
+        {
+            var connectionString = ReplaceCatalog(baseConnection, "AffiliateDb");
+            options.UseSqlServer(connectionString);
+        });
+      
 
         // RegisterAutoMappers
         services.AddAutoMapper(typeof(CommentProfile).Assembly);
@@ -76,3 +83,4 @@ public static class ModuleRegistration
         return builder.ToString();
     }
 }
+

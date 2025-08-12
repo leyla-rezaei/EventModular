@@ -17,5 +17,5 @@ public static class SchemaConsts
     public const string Comment = "comment";
     public const string Subdomain = "subdomain";
     public const string Affiliate = "affiliate";
-
+    public const string Discount = "discount";
 }
