@@ -18,4 +18,6 @@ public static class SchemaConsts
     public const string Subdomain = "subdomain";
     public const string Affiliate = "affiliate";
     public const string Discount = "discount";
+    public const string Course = "course";
+    public const string TeamManagement = "teamManagement";
 }
