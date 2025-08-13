@@ -2,11 +2,13 @@
 using EventModular.Server.Modules.Categories.Infrastructure.Persistence;
 using EventModular.Server.Modules.Comments.Application.Mappers;
 using EventModular.Server.Modules.Comments.Infrastructure.Persistence;
+using EventModular.Server.Modules.Courses.Infrastructure.Persistence;
 using EventModular.Server.Modules.Discounts.Infrastructure.Persistence;
 using EventModular.Server.Modules.Events.Infrastructure.Persistence;
 using EventModular.Server.Modules.Organizer.Infrastructure.Persistence;
 using EventModular.Server.Modules.Posts.Infrastructure.Persistence;
 using EventModular.Server.Modules.Subdomains.Infrastructure.Persistence;
+using EventModular.Server.Modules.TeamManagement.Infrastructure.Persistence;
 using Microsoft.Data.SqlClient;
 
 namespace EventModular.Server.Api.Extensions;
@@ -62,10 +64,21 @@ public static class ModuleRegistration
 
         services.AddDbContext<DiscountDbContext>(options =>
         {
-            var connectionString = ReplaceCatalog(baseConnection, "AffiliateDb");
+            var connectionString = ReplaceCatalog(baseConnection, "DiscountDb");
             options.UseSqlServer(connectionString);
         });
-      
+
+        services.AddDbContext<CourseDbContext>(options =>
+        {
+            var connectionString = ReplaceCatalog(baseConnection, "CourseDb");
+            options.UseSqlServer(connectionString);
+        });
+
+        services.AddDbContext<TeamManagementDbContext>(options =>
+        {
+            var connectionString = ReplaceCatalog(baseConnection, "OrganizerRoleDb");
+            options.UseSqlServer(connectionString);
+        });
 
         // RegisterAutoMappers
         services.AddAutoMapper(typeof(CommentProfile).Assembly);

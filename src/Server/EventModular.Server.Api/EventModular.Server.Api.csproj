@@ -88,6 +88,8 @@
         <ProjectReference Include="..\Modules\Categories\EventModular.Server.Modules.Categories.Infrastructure\EventModular.Server.Modules.Categories.Infrastructure.csproj" />
         <ProjectReference Include="..\Modules\Comments\EventModular.Server.Modules.Comments.Api\EventModular.Server.Modules.Comments.Api.csproj" />
         <ProjectReference Include="..\Modules\Comments\EventModular.Server.Modules.Comments.Infrastructure\EventModular.Server.Modules.Comments.Infrastructure.csproj" />
+        <ProjectReference Include="..\Modules\Courses\EventModular.Server.Modules.Courses.Api\EventModular.Server.Modules.Courses.Api.csproj" />
+        <ProjectReference Include="..\Modules\Courses\EventModular.Server.Modules.Courses.Infrastructure\EventModular.Server.Modules.Courses.Infrastructure.csproj" />
         <ProjectReference Include="..\Modules\Discounts\EventModular.Server.Modules.Discounts.Infrastructure\EventModular.Server.Modules.Discounts.Infrastructure.csproj" />
         <ProjectReference Include="..\Modules\Events\EventModular.Server.Modules.Events.Api\EventModular.Server.Modules.Events.Api.csproj" />
         <ProjectReference Include="..\Modules\Events\EventModular.Server.Modules.Events.Infrastructure\EventModular.Server.Modules.Events.Infrastructure.csproj" />
@@ -97,6 +99,8 @@
         <ProjectReference Include="..\Modules\Posts\EventModular.Server.Modules.Posts.Infrastructure\EventModular.Server.Modules.Posts.Infrastructure.csproj" />
         <ProjectReference Include="..\Modules\Subdomains\EventModular.Server.Modules.Subdomains.Api\EventModular.Server.Modules.Subdomains.Api.csproj" />
         <ProjectReference Include="..\Modules\Subdomains\EventModular.Server.Modules.Subdomains.Infrastructure\EventModular.Server.Modules.Subdomains.Infrastructure.csproj" />
+        <ProjectReference Include="..\Modules\TeamManagement\EventModular.Server.Modules.TeamManagement.Api\EventModular.Server.Modules.TeamManagement.Api.csproj" />
+        <ProjectReference Include="..\Modules\TeamManagement\EventModular.Server.Modules.TeamManagement.Infrastructure\EventModular.Server.Modules.TeamManagement.Infrastructure.csproj" />
     </ItemGroup>
 
     <ItemGroup>

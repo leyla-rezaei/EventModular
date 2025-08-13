@@ -1,11 +1,13 @@
 ﻿using EventModular.Server.Modules.AffiliateMarketing.Infrastructure.Persistence;
 using EventModular.Server.Modules.Categories.Infrastructure.Persistence;
 using EventModular.Server.Modules.Comments.Infrastructure.Persistence;
+using EventModular.Server.Modules.Courses.Infrastructure.Persistence;
 using EventModular.Server.Modules.Discounts.Infrastructure.Persistence;
 using EventModular.Server.Modules.Events.Infrastructure.Persistence;
 using EventModular.Server.Modules.Organizer.Infrastructure.Persistence;
 using EventModular.Server.Modules.Posts.Infrastructure.Persistence;
 using EventModular.Server.Modules.Subdomains.Infrastructure.Persistence;
+using EventModular.Server.Modules.TeamManagement.Infrastructure.Persistence;
 
 namespace EventModular.Server.Api.Data;
 
@@ -25,7 +27,9 @@ public static class DataInitializer
             scope.ServiceProvider.GetRequiredService<SubdomainDbContext>(),
             scope.ServiceProvider.GetRequiredService<PostDbContext>(),
             scope.ServiceProvider.GetRequiredService<AffiliateDbContext>(),
-            scope.ServiceProvider.GetRequiredService<DiscountDbContext>(), 
+            scope.ServiceProvider.GetRequiredService<DiscountDbContext>(),
+            scope.ServiceProvider.GetRequiredService<CourseDbContext>(),
+            scope.ServiceProvider.GetRequiredService<TeamManagementDbContext>(),
         };
 
         foreach (var context in contexts)
