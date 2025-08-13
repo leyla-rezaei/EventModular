@@ -93,6 +93,8 @@
         <ProjectReference Include="..\Modules\Discounts\EventModular.Server.Modules.Discounts.Infrastructure\EventModular.Server.Modules.Discounts.Infrastructure.csproj" />
         <ProjectReference Include="..\Modules\Events\EventModular.Server.Modules.Events.Api\EventModular.Server.Modules.Events.Api.csproj" />
         <ProjectReference Include="..\Modules\Events\EventModular.Server.Modules.Events.Infrastructure\EventModular.Server.Modules.Events.Infrastructure.csproj" />
+        <ProjectReference Include="..\Modules\Notifications\EventModular.Server.Modules.Notifications.Api\EventModular.Server.Modules.Notifications.Api.csproj" />
+        <ProjectReference Include="..\Modules\Notifications\EventModular.Server.Modules.Notifications.Infrastructure\EventModular.Server.Modules.Notifications.Infrastructure.csproj" />
         <ProjectReference Include="..\Modules\Organizer\EventModular.Server.Modules.Organizer.Api\EventModular.Server.Modules.Organizer.Api.csproj" />
         <ProjectReference Include="..\Modules\Organizer\EventModular.Server.Modules.Organizer.Infrastructure\EventModular.Server.Modules.Organizer.Infrastructure.csproj" />
         <ProjectReference Include="..\Modules\Posts\EventModular.Server.Modules.Posts.Api\EventModular.Server.Modules.Posts.Api.csproj" />

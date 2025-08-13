@@ -5,6 +5,7 @@ using EventModular.Server.Modules.Comments.Infrastructure.Persistence;
 using EventModular.Server.Modules.Courses.Infrastructure.Persistence;
 using EventModular.Server.Modules.Discounts.Infrastructure.Persistence;
 using EventModular.Server.Modules.Events.Infrastructure.Persistence;
+using EventModular.Server.Modules.Notifications.Infrastructure.Persistence;
 using EventModular.Server.Modules.Organizer.Infrastructure.Persistence;
 using EventModular.Server.Modules.Posts.Infrastructure.Persistence;
 using EventModular.Server.Modules.Subdomains.Infrastructure.Persistence;
@@ -84,6 +85,13 @@ public static class ModuleRegistration
         services.AddDbContext<TicketDbContext>(options =>
         {
             var connectionString = ReplaceCatalog(baseConnection, "TicketDb");
+            options.UseSqlServer(connectionString);
+        });
+
+
+        services.AddDbContext<NotificationDbContext>(options =>
+        {
+            var connectionString = ReplaceCatalog(baseConnection, "NotificationDb");
             options.UseSqlServer(connectionString);
         });
 
