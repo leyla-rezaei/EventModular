@@ -101,6 +101,8 @@
         <ProjectReference Include="..\Modules\Subdomains\EventModular.Server.Modules.Subdomains.Infrastructure\EventModular.Server.Modules.Subdomains.Infrastructure.csproj" />
         <ProjectReference Include="..\Modules\TeamManagement\EventModular.Server.Modules.TeamManagement.Api\EventModular.Server.Modules.TeamManagement.Api.csproj" />
         <ProjectReference Include="..\Modules\TeamManagement\EventModular.Server.Modules.TeamManagement.Infrastructure\EventModular.Server.Modules.TeamManagement.Infrastructure.csproj" />
+        <ProjectReference Include="..\Modules\Tickets\EventModular.Server.Modules.Tickets.Api\EventModular.Server.Modules.Tickets.Api.csproj" />
+        <ProjectReference Include="..\Modules\Tickets\EventModular.Server.Modules.Tickets.Infrastructure\EventModular.Server.Modules.Tickets.Infrastructure.csproj" />
     </ItemGroup>
 
     <ItemGroup>
