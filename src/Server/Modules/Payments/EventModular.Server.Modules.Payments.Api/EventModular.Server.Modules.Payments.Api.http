@@ -1,0 +1,6 @@
+@EventModular.Server.Modules.Payments.Api_HostAddress = http://localhost:5251
+
+GET {{EventModular.Server.Modules.Payments.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

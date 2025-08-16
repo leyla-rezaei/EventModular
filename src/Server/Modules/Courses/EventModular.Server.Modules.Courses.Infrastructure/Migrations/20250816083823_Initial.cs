@@ -25,7 +25,6 @@ namespace EventModular.Server.Modules.Courses.Infrastructure.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     OrganizerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     SubdomainId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     IsPublished = table.Column<bool>(type: "bit", nullable: false),
                     PublishDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ThumbnailUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -62,6 +61,33 @@ namespace EventModular.Server.Modules.Courses.Infrastructure.Migrations
                     table.PrimaryKey("PK_CourseLocalization", x => x.Id);
                     table.ForeignKey(
                         name: "FK_CourseLocalization_Course_CourseId",
+                        column: x => x.CourseId,
+                        principalSchema: "course",
+                        principalTable: "Course",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CoursePrice",
+                schema: "course",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CourseId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CurrencyCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    CreationDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    ModificationDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    IsArchived = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    LastModificationById = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CoursePrice", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CoursePrice_Course_CourseId",
                         column: x => x.CourseId,
                         principalSchema: "course",
                         principalTable: "Course",
@@ -198,6 +224,12 @@ namespace EventModular.Server.Modules.Courses.Infrastructure.Migrations
                 column: "CourseId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CoursePrice_CourseId",
+                schema: "course",
+                table: "CoursePrice",
+                column: "CourseId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CourseSection_CourseId",
                 schema: "course",
                 table: "CourseSection",
@@ -220,6 +252,10 @@ namespace EventModular.Server.Modules.Courses.Infrastructure.Migrations
             migrationBuilder.DropTable(
                 name: "CourseLocalization",
                 schema: "localization");
+
+            migrationBuilder.DropTable(
+                name: "CoursePrice",
+                schema: "course");
 
             migrationBuilder.DropTable(
                 name: "CourseSectionLocalization",

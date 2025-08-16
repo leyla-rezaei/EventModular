@@ -20,4 +20,5 @@ public static class SchemaConsts
     public const string Discount = "discount";
     public const string Course = "course";
     public const string TeamManagement = "teamManagement";
+    public const string PaymentGateway = "payment_gateway";
 }

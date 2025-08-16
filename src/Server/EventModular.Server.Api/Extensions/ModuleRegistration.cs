@@ -6,7 +6,9 @@ using EventModular.Server.Modules.Courses.Infrastructure.Persistence;
 using EventModular.Server.Modules.Discounts.Infrastructure.Persistence;
 using EventModular.Server.Modules.Events.Infrastructure.Persistence;
 using EventModular.Server.Modules.Notifications.Infrastructure.Persistence;
+using EventModular.Server.Modules.Orders.Infrastructure.Persistence;
 using EventModular.Server.Modules.Organizer.Infrastructure.Persistence;
+using EventModular.Server.Modules.Payments.Infrastructure.Persistence;
 using EventModular.Server.Modules.Posts.Infrastructure.Persistence;
 using EventModular.Server.Modules.Subdomains.Infrastructure.Persistence;
 using EventModular.Server.Modules.TeamManagement.Infrastructure.Persistence;
@@ -96,7 +98,19 @@ public static class ModuleRegistration
         });
 
 
+        services.AddDbContext<OrderDbContext>(options =>
+        {
+            var connectionString = ReplaceCatalog(baseConnection, "OrderDb");
+            options.UseSqlServer(connectionString);
+        });
 
+        services.AddDbContext<PaymentDbContext>(options =>
+        {
+            var connectionString = ReplaceCatalog(baseConnection, "PaymentDb");
+            options.UseSqlServer(connectionString);
+        });
+
+        
         // RegisterAutoMappers
         services.AddAutoMapper(typeof(CommentProfile).Assembly);
 
