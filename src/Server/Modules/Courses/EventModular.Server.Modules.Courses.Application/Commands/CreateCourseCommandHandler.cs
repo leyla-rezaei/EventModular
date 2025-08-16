@@ -15,7 +15,6 @@ public class CreateCourseCommandHandler : IRequestHandler<CreateCourseCommand, C
         var entity = new Course
         {
             OrganizerId = request.dto.OrganizerId,
-            Price = request.dto.Price,
             IsPublished = request.dto.IsPublished,
             PublishDate = request.dto.PublishDate,
             ThumbnailUrl = request.dto.ThumbnailUrl,
@@ -57,7 +56,6 @@ public class CreateCourseCommandHandler : IRequestHandler<CreateCourseCommand, C
         {
             Id = entity.Id,
             OrganizerId = entity.OrganizerId,
-            Price = entity.Price,
             IsPublished = entity.IsPublished,
             PublishDate = entity.PublishDate,
             ThumbnailUrl = entity.ThumbnailUrl,

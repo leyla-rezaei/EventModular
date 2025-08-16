@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EventModular.Server.Modules.Courses.Infrastructure.Migrations
 {
     [DbContext(typeof(CourseDbContext))]
-    [Migration("20250813135655_Initial")]
+    [Migration("20250816083823_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -52,9 +52,6 @@ namespace EventModular.Server.Modules.Courses.Infrastructure.Migrations
 
                     b.Property<Guid>("OrganizerId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime?>("PublishDate")
                         .HasColumnType("datetime2");
@@ -207,6 +204,44 @@ namespace EventModular.Server.Modules.Courses.Infrastructure.Migrations
                     b.ToTable("CourseLocalization", "localization");
                 });
 
+            modelBuilder.Entity("EventModular.Server.Modules.Courses.Domain.Entities.CoursePrice", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CourseId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CreatedById")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("CreationDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("CurrencyCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsArchived")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid?>("LastModificationById")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset?>("ModificationDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
+
+                    b.ToTable("CoursePrice", "course");
+                });
+
             modelBuilder.Entity("EventModular.Server.Modules.Courses.Domain.Entities.CourseSection", b =>
                 {
                     b.Property<Guid>("Id")
@@ -322,6 +357,17 @@ namespace EventModular.Server.Modules.Courses.Infrastructure.Migrations
                     b.Navigation("Course");
                 });
 
+            modelBuilder.Entity("EventModular.Server.Modules.Courses.Domain.Entities.CoursePrice", b =>
+                {
+                    b.HasOne("EventModular.Server.Modules.Courses.Domain.Entities.Course", "Course")
+                        .WithMany("Prices")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
+                });
+
             modelBuilder.Entity("EventModular.Server.Modules.Courses.Domain.Entities.CourseSection", b =>
                 {
                     b.HasOne("EventModular.Server.Modules.Courses.Domain.Entities.Course", "Course")
@@ -347,6 +393,8 @@ namespace EventModular.Server.Modules.Courses.Infrastructure.Migrations
             modelBuilder.Entity("EventModular.Server.Modules.Courses.Domain.Entities.Course", b =>
                 {
                     b.Navigation("Localizations");
+
+                    b.Navigation("Prices");
 
                     b.Navigation("Sections");
                 });

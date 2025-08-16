@@ -137,7 +137,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventModular.Server.Modules
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Orders", "Orders", "{4821E9F7-0124-47A5-9B48-BAE566265E3A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Payment", "Payment", "{F929EC9E-0B59-4310-AE9F-EEC9B862AB31}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Payments", "Payments", "{F929EC9E-0B59-4310-AE9F-EEC9B862AB31}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Notifications", "Notifications", "{9C5FAF68-9AE9-4400-98DA-BD299EB0DEE4}"
 EndProject
@@ -180,6 +180,22 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventModular.Server.Modules.Notifications.Domain", "src\Server\Modules\Notifications\EventModular.Server.Modules.Notifications.Domain\EventModular.Server.Modules.Notifications.Domain.csproj", "{C54A40BC-EE9F-411C-9FBC-CE64C71C5C25}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventModular.Server.Modules.Notifications.Infrastructure", "src\Server\Modules\Notifications\EventModular.Server.Modules.Notifications.Infrastructure\EventModular.Server.Modules.Notifications.Infrastructure.csproj", "{0DF4C538-03E1-45F6-93EF-659CF21A087F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventModular.Server.Modules.Orders.Api", "src\Server\Modules\Orders\EventModular.Server.Modules.Orders.Api\EventModular.Server.Modules.Orders.Api.csproj", "{639AB49C-CC6E-434B-BA49-2FC967114E7C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventModular.Server.Modules.Orders.Application", "src\Server\Modules\Orders\EventModular.Server.Modules.Orders.Application\EventModular.Server.Modules.Orders.Application.csproj", "{2A3F431E-4065-4565-80F4-D993629E0568}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventModular.Server.Modules.Orders.Infrastructure", "src\Server\Modules\Orders\EventModular.Server.Modules.Orders.Infrastructure\EventModular.Server.Modules.Orders.Infrastructure.csproj", "{6357A829-31FC-46E6-BA97-5AB8A3C56119}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventModular.Server.Modules.Orders.Domain", "src\Server\Modules\Orders\EventModular.Server.Modules.Orders.Domain\EventModular.Server.Modules.Orders.Domain.csproj", "{3E188590-BF8C-4B14-AE38-DD1671E4CC03}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventModular.Server.Modules.Payments.Api", "src\Server\Modules\Payments\EventModular.Server.Modules.Payments.Api\EventModular.Server.Modules.Payments.Api.csproj", "{D4FA4714-C255-43B8-90EC-7DFD3C41466F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventModular.Server.Modules.Payments.Application", "src\Server\Modules\Payments\EventModular.Server.Modules.Payments.Application\EventModular.Server.Modules.Payments.Application.csproj", "{E59AD188-7F40-468B-B99B-5106D02EDA90}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventModular.Server.Modules.Payments.Domain", "src\Server\Modules\Payments\EventModular.Server.Modules.Payments.Domain\EventModular.Server.Modules.Payments.Domain.csproj", "{AEEAF54A-0107-4551-A841-5887F8ACDAB9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventModular.Server.Modules.Payments.Infrastructure", "src\Server\Modules\Payments\EventModular.Server.Modules.Payments.Infrastructure\EventModular.Server.Modules.Payments.Infrastructure.csproj", "{4C028FCA-6F7C-431F-8047-6092FCAAE9BF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -421,6 +437,38 @@ Global
 		{0DF4C538-03E1-45F6-93EF-659CF21A087F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0DF4C538-03E1-45F6-93EF-659CF21A087F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0DF4C538-03E1-45F6-93EF-659CF21A087F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{639AB49C-CC6E-434B-BA49-2FC967114E7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{639AB49C-CC6E-434B-BA49-2FC967114E7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{639AB49C-CC6E-434B-BA49-2FC967114E7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{639AB49C-CC6E-434B-BA49-2FC967114E7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A3F431E-4065-4565-80F4-D993629E0568}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A3F431E-4065-4565-80F4-D993629E0568}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A3F431E-4065-4565-80F4-D993629E0568}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A3F431E-4065-4565-80F4-D993629E0568}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6357A829-31FC-46E6-BA97-5AB8A3C56119}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6357A829-31FC-46E6-BA97-5AB8A3C56119}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6357A829-31FC-46E6-BA97-5AB8A3C56119}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6357A829-31FC-46E6-BA97-5AB8A3C56119}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E188590-BF8C-4B14-AE38-DD1671E4CC03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E188590-BF8C-4B14-AE38-DD1671E4CC03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E188590-BF8C-4B14-AE38-DD1671E4CC03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E188590-BF8C-4B14-AE38-DD1671E4CC03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4FA4714-C255-43B8-90EC-7DFD3C41466F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4FA4714-C255-43B8-90EC-7DFD3C41466F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4FA4714-C255-43B8-90EC-7DFD3C41466F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4FA4714-C255-43B8-90EC-7DFD3C41466F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E59AD188-7F40-468B-B99B-5106D02EDA90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E59AD188-7F40-468B-B99B-5106D02EDA90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E59AD188-7F40-468B-B99B-5106D02EDA90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E59AD188-7F40-468B-B99B-5106D02EDA90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEEAF54A-0107-4551-A841-5887F8ACDAB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEEAF54A-0107-4551-A841-5887F8ACDAB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEEAF54A-0107-4551-A841-5887F8ACDAB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEEAF54A-0107-4551-A841-5887F8ACDAB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C028FCA-6F7C-431F-8047-6092FCAAE9BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C028FCA-6F7C-431F-8047-6092FCAAE9BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C028FCA-6F7C-431F-8047-6092FCAAE9BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C028FCA-6F7C-431F-8047-6092FCAAE9BF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -501,6 +549,14 @@ Global
 		{89C53079-BA1B-473A-BF9F-5682362996ED} = {9C5FAF68-9AE9-4400-98DA-BD299EB0DEE4}
 		{C54A40BC-EE9F-411C-9FBC-CE64C71C5C25} = {9C5FAF68-9AE9-4400-98DA-BD299EB0DEE4}
 		{0DF4C538-03E1-45F6-93EF-659CF21A087F} = {9C5FAF68-9AE9-4400-98DA-BD299EB0DEE4}
+		{639AB49C-CC6E-434B-BA49-2FC967114E7C} = {4821E9F7-0124-47A5-9B48-BAE566265E3A}
+		{2A3F431E-4065-4565-80F4-D993629E0568} = {4821E9F7-0124-47A5-9B48-BAE566265E3A}
+		{6357A829-31FC-46E6-BA97-5AB8A3C56119} = {4821E9F7-0124-47A5-9B48-BAE566265E3A}
+		{3E188590-BF8C-4B14-AE38-DD1671E4CC03} = {4821E9F7-0124-47A5-9B48-BAE566265E3A}
+		{D4FA4714-C255-43B8-90EC-7DFD3C41466F} = {F929EC9E-0B59-4310-AE9F-EEC9B862AB31}
+		{E59AD188-7F40-468B-B99B-5106D02EDA90} = {F929EC9E-0B59-4310-AE9F-EEC9B862AB31}
+		{AEEAF54A-0107-4551-A841-5887F8ACDAB9} = {F929EC9E-0B59-4310-AE9F-EEC9B862AB31}
+		{4C028FCA-6F7C-431F-8047-6092FCAAE9BF} = {F929EC9E-0B59-4310-AE9F-EEC9B862AB31}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		RESX_NeutralResourcesLanguage = en-US
