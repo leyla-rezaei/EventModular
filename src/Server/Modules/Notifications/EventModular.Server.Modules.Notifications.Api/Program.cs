@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add DbContext and Services specific to this module
 builder.Services.AddDbContext<NotificationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("EventConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("NotificationConnection")));
 
 
 

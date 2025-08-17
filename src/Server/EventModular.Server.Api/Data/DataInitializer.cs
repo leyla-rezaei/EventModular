@@ -4,6 +4,7 @@ using EventModular.Server.Modules.Comments.Infrastructure.Persistence;
 using EventModular.Server.Modules.Courses.Infrastructure.Persistence;
 using EventModular.Server.Modules.Discounts.Infrastructure.Persistence;
 using EventModular.Server.Modules.Events.Infrastructure.Persistence;
+using EventModular.Server.Modules.Live.Infrastructure.Persistence;
 using EventModular.Server.Modules.Notifications.Infrastructure.Persistence;
 using EventModular.Server.Modules.Orders.Infrastructure.Persistence;
 using EventModular.Server.Modules.Organizer.Infrastructure.Persistence;
@@ -11,6 +12,7 @@ using EventModular.Server.Modules.Payments.Infrastructure.Persistence;
 using EventModular.Server.Modules.Posts.Infrastructure.Persistence;
 using EventModular.Server.Modules.Subdomains.Infrastructure.Persistence;
 using EventModular.Server.Modules.TeamManagement.Infrastructure.Persistence;
+using EventModular.Server.Modules.Tickets.Infrastructure.Persistence;
 
 namespace EventModular.Server.Api.Data;
 
@@ -33,9 +35,11 @@ public static class DataInitializer
             scope.ServiceProvider.GetRequiredService<DiscountDbContext>(),
             scope.ServiceProvider.GetRequiredService<CourseDbContext>(),
             scope.ServiceProvider.GetRequiredService<TeamManagementDbContext>(),
+            scope.ServiceProvider.GetRequiredService<TicketDbContext>(),
             scope.ServiceProvider.GetRequiredService<NotificationDbContext>(),
             scope.ServiceProvider.GetRequiredService<OrderDbContext>(),
             scope.ServiceProvider.GetRequiredService<PaymentDbContext>(),
+            scope.ServiceProvider.GetRequiredService<LiveDbContext>(),
 
         };
 

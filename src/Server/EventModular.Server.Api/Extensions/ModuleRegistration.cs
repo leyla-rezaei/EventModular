@@ -5,6 +5,7 @@ using EventModular.Server.Modules.Comments.Infrastructure.Persistence;
 using EventModular.Server.Modules.Courses.Infrastructure.Persistence;
 using EventModular.Server.Modules.Discounts.Infrastructure.Persistence;
 using EventModular.Server.Modules.Events.Infrastructure.Persistence;
+using EventModular.Server.Modules.Live.Infrastructure.Persistence;
 using EventModular.Server.Modules.Notifications.Infrastructure.Persistence;
 using EventModular.Server.Modules.Orders.Infrastructure.Persistence;
 using EventModular.Server.Modules.Organizer.Infrastructure.Persistence;
@@ -110,7 +111,13 @@ public static class ModuleRegistration
             options.UseSqlServer(connectionString);
         });
 
-        
+        services.AddDbContext<LiveDbContext>(options =>
+        {
+            var connectionString = ReplaceCatalog(baseConnection, "LiveDb");
+            options.UseSqlServer(connectionString);
+        });
+
+
         // RegisterAutoMappers
         services.AddAutoMapper(typeof(CommentProfile).Assembly);
 

@@ -42,32 +42,6 @@ namespace EventModular.Server.Modules.Payments.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Payment",
-                schema: "payment",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PaymentGatewayId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CurrencyCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false),
-                    ProviderIntentId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ProviderPaymentId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ProviderTrackingCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RawResponseJson = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreationDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    ModificationDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    IsArchived = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    LastModificationById = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Payment", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "PaymentGateway",
                 schema: "payment",
                 columns: table => new
@@ -129,6 +103,47 @@ namespace EventModular.Server.Modules.Payments.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Payment",
+                schema: "payment",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PaymentGatewayId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    InvoiceId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CurrencyCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    ProviderIntentId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProviderPaymentId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProviderTrackingCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RawResponseJson = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreationDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    ModificationDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    IsArchived = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    LastModificationById = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Payment", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Payment_Invoice_InvoiceId",
+                        column: x => x.InvoiceId,
+                        principalSchema: "Payment",
+                        principalTable: "Invoice",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Payment_PaymentGateway_PaymentGatewayId",
+                        column: x => x.PaymentGatewayId,
+                        principalSchema: "payment",
+                        principalTable: "PaymentGateway",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PaymentGatewayCurrency",
                 schema: "payment",
                 columns: table => new
@@ -182,6 +197,52 @@ namespace EventModular.Server.Modules.Payments.Infrastructure.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "PaymentAttempt",
+                schema: "payment",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PaymentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    AttemptedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    ResponseJson = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreationDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    ModificationDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    IsArchived = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    LastModificationById = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PaymentAttempt", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PaymentAttempt_Payment_PaymentId",
+                        column: x => x.PaymentId,
+                        principalSchema: "payment",
+                        principalTable: "Payment",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Payment_InvoiceId",
+                schema: "payment",
+                table: "Payment",
+                column: "InvoiceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Payment_PaymentGatewayId",
+                schema: "payment",
+                table: "Payment",
+                column: "PaymentGatewayId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PaymentAttempt_PaymentId",
+                schema: "payment",
+                table: "PaymentAttempt",
+                column: "PaymentId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_PaymentGatewayCurrency_PaymentGatewayId",
                 schema: "payment",
@@ -205,7 +266,7 @@ namespace EventModular.Server.Modules.Payments.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Payment",
+                name: "PaymentAttempt",
                 schema: "payment");
 
             migrationBuilder.DropTable(
@@ -221,12 +282,16 @@ namespace EventModular.Server.Modules.Payments.Infrastructure.Migrations
                 schema: "Payment");
 
             migrationBuilder.DropTable(
-                name: "PaymentGateway",
+                name: "Payment",
                 schema: "payment");
 
             migrationBuilder.DropTable(
                 name: "Invoice",
                 schema: "Payment");
+
+            migrationBuilder.DropTable(
+                name: "PaymentGateway",
+                schema: "payment");
         }
     }
 }

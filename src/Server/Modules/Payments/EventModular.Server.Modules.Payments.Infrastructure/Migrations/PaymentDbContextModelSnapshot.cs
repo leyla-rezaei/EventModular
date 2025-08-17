@@ -81,6 +81,9 @@ namespace EventModular.Server.Modules.Payments.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("InvoiceId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<bool>("IsArchived")
                         .HasColumnType("bit");
 
@@ -113,7 +116,51 @@ namespace EventModular.Server.Modules.Payments.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("InvoiceId");
+
+                    b.HasIndex("PaymentGatewayId");
+
                     b.ToTable("Payment", "payment");
+                });
+
+            modelBuilder.Entity("EventModular.Server.Modules.Payments.Domain.Entities.PaymentAttempt", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("AttemptedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("CreatedById")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("CreationDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<bool>("IsArchived")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid?>("LastModificationById")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset?>("ModificationDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<Guid>("PaymentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ResponseJson")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PaymentId");
+
+                    b.ToTable("PaymentAttempt", "payment");
                 });
 
             modelBuilder.Entity("EventModular.Server.Modules.Payments.Domain.Entities.PaymentGateway", b =>
@@ -320,6 +367,36 @@ namespace EventModular.Server.Modules.Payments.Infrastructure.Migrations
                     b.ToTable("PaymentGatewayLog", "Payment");
                 });
 
+            modelBuilder.Entity("EventModular.Server.Modules.Payments.Domain.Entities.Payment", b =>
+                {
+                    b.HasOne("EventModular.Server.Modules.Payments.Domain.Entities.Invoice", "Invoice")
+                        .WithMany()
+                        .HasForeignKey("InvoiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EventModular.Server.Modules.Payments.Domain.Entities.PaymentGateway", "PaymentGateway")
+                        .WithMany()
+                        .HasForeignKey("PaymentGatewayId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Invoice");
+
+                    b.Navigation("PaymentGateway");
+                });
+
+            modelBuilder.Entity("EventModular.Server.Modules.Payments.Domain.Entities.PaymentAttempt", b =>
+                {
+                    b.HasOne("EventModular.Server.Modules.Payments.Domain.Entities.Payment", "Payment")
+                        .WithMany("Attempts")
+                        .HasForeignKey("PaymentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Payment");
+                });
+
             modelBuilder.Entity("EventModular.Server.Modules.Payments.Domain.Entities.PaymentGatewayCurrency", b =>
                 {
                     b.HasOne("EventModular.Server.Modules.Payments.Domain.Entities.PaymentGateway", null)
@@ -352,6 +429,11 @@ namespace EventModular.Server.Modules.Payments.Infrastructure.Migrations
             modelBuilder.Entity("EventModular.Server.Modules.Payments.Domain.Entities.Invoice", b =>
                 {
                     b.Navigation("GatewayLogs");
+                });
+
+            modelBuilder.Entity("EventModular.Server.Modules.Payments.Domain.Entities.Payment", b =>
+                {
+                    b.Navigation("Attempts");
                 });
 
             modelBuilder.Entity("EventModular.Server.Modules.Payments.Domain.Entities.PaymentGateway", b =>
