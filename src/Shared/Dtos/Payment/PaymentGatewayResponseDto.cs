@@ -10,6 +10,7 @@ public class PaymentGatewayResponseDto
     public string ApiSecret { get; set; }
     public string EndpointUrl { get; set; }
     public bool IsActive { get; set; }
+    public string? MerchantId { get; set; }
 
     public List<PaymentGatewayLocalizationDto>? Localizations { get; set; } = new();
     public List<PaymentGatewayCurrencyDto> PaymentGatewayCurrencies { get; set; } = new();

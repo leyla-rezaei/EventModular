@@ -28,6 +28,9 @@ namespace EventModular.Server.Modules.Subdomains.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime?>("ActivatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<Guid?>("CreatedById")
                         .HasColumnType("uniqueidentifier");
 
@@ -38,8 +41,8 @@ namespace EventModular.Server.Modules.Subdomains.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                    b.Property<DateTime?>("ExpiredAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("IsArchived")
                         .HasColumnType("bit");
@@ -47,11 +50,17 @@ namespace EventModular.Server.Modules.Subdomains.Infrastructure.Migrations
                     b.Property<Guid?>("LastModificationById")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("LastPaymentId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTimeOffset?>("ModificationDate")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<Guid>("OrganizerId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -101,6 +110,49 @@ namespace EventModular.Server.Modules.Subdomains.Infrastructure.Migrations
                     b.ToTable("SubdomainLocalization", "localization");
                 });
 
+            modelBuilder.Entity("EventModular.Server.Modules.Subdomains.Domain.Entities.SubdomainSubscriptionHistory", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("ActivatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("CreatedById")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("CreationDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<int>("Duration")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ExpiredAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsArchived")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid?>("LastModificationById")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset?>("ModificationDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<Guid>("PaymentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("SubdomainId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SubdomainId");
+
+                    b.ToTable("SubdomainSubscriptionHistory", "subdomain");
+                });
+
             modelBuilder.Entity("EventModular.Server.Modules.Subdomains.Domain.Entities.SubdomainLocalization", b =>
                 {
                     b.HasOne("EventModular.Server.Modules.Subdomains.Domain.Entities.Subdomain", "Subdomain")
@@ -112,9 +164,20 @@ namespace EventModular.Server.Modules.Subdomains.Infrastructure.Migrations
                     b.Navigation("Subdomain");
                 });
 
+            modelBuilder.Entity("EventModular.Server.Modules.Subdomains.Domain.Entities.SubdomainSubscriptionHistory", b =>
+                {
+                    b.HasOne("EventModular.Server.Modules.Subdomains.Domain.Entities.Subdomain", null)
+                        .WithMany("SubscriptionHistories")
+                        .HasForeignKey("SubdomainId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("EventModular.Server.Modules.Subdomains.Domain.Entities.Subdomain", b =>
                 {
                     b.Navigation("Localizations");
+
+                    b.Navigation("SubscriptionHistories");
                 });
 #pragma warning restore 612, 618
         }

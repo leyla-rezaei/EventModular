@@ -5,19 +5,23 @@ using EventModular.Shared.Enums.Order;
 using MediatR;
 
 namespace EventModular.Server.Modules.Orders.Application.Commands;
+
 public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, OrderResponseDto>
 {
     private readonly IApplicationDbContext _context;
 
-    public CreateOrderCommandHandler(IApplicationDbContext context) => _context = context;
+    public CreateOrderCommandHandler(IApplicationDbContext context)
+    {
+        _context = context;
+    }
 
     public async Task<OrderResponseDto> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
     {
-        // محاسبات جمع‌ها
+        // محاسبه جمع‌ها
         var subtotal = request.dto.Items.Sum(i => i.UnitPrice * i.Quantity);
-        var discount = 0m; // بعداً از ماژول Discount محاسبه و اعمال می‌کنی (از طریق MediatR)
-        var tax = 0m;      // بسته به قوانین/کشورها
-        var grand = subtotal - discount + tax;
+        var discount = 0m; 
+        var tax = 0m;     
+        var grandTotal = subtotal - discount + tax;
 
         var order = new Order
         {
@@ -28,7 +32,7 @@ public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Ord
             Subtotal = subtotal,
             DiscountTotal = discount,
             TaxTotal = tax,
-            GrandTotal = grand,
+            GrandTotal = grandTotal,
             Status = OrderStatus.AwaitingPayment,
             Source = request.dto.Source,
             Items = request.dto.Items.Select(i => new OrderItem
@@ -58,18 +62,20 @@ public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Ord
             GrandTotal = order.GrandTotal,
             Status = order.Status,
             Source = order.Source,
-            Items = order.Items.Select(x => new OrderItemRequestDto
+            Items = order.Items.Select(x => new OrderItemResponseDto
             {
-                OrderId = x.Id,
-                CurrencyCode = x.CurrencyCode,
-                UnitPrice = x.UnitPrice,
-                LineTotal = x.LineTotal,
+                Id = x.Id,
+                OrderId = x.OrderId,
                 ProductId = x.ProductId,
                 ProductKind = x.ProductKind,
-                Quantity = x.Quantity,
                 SnapshotTitle = x.SnapshotTitle,
+                CurrencyCode = x.CurrencyCode,
+                UnitPrice = x.UnitPrice,
+                Quantity = x.Quantity,
+                LineTotal = x.LineTotal,
                 SnapshotJson = x.SnapshotJson
-            }).ToList()
+            }).ToList(),
+            
         };
     }
 }

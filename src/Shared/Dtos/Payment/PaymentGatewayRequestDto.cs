@@ -8,6 +8,7 @@ public class PaymentGatewayRequestDto
     public string ApiKey { get; set; }
     public string ApiSecret { get; set; }
     public string EndpointUrl { get; set; }
+    public string? MerchantId { get; set; }
     public bool IsActive { get; set; }
 
     public List<PaymentGatewayCurrencyDto> SupportedCurrencies { get; set; } = new();

@@ -79,6 +79,52 @@ namespace EventModular.Server.Modules.Orders.Infrastructure.Migrations
                     b.ToTable("Order", "order");
                 });
 
+            modelBuilder.Entity("EventModular.Server.Modules.Orders.Domain.Entities.OrderHistory", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ChangedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ChangedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("CreatedById")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("CreationDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<bool>("IsArchived")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid?>("LastModificationById")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset?>("ModificationDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<int>("NewStatus")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Note")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("OrderId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("PreviousStatus")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderHistory", "order");
+                });
+
             modelBuilder.Entity("EventModular.Server.Modules.Orders.Domain.Entities.OrderItem", b =>
                 {
                     b.Property<Guid>("Id")
@@ -371,6 +417,17 @@ namespace EventModular.Server.Modules.Orders.Infrastructure.Migrations
                     b.ToTable("OrderTrackingLocalization", "localization");
                 });
 
+            modelBuilder.Entity("EventModular.Server.Modules.Orders.Domain.Entities.OrderHistory", b =>
+                {
+                    b.HasOne("EventModular.Server.Modules.Orders.Domain.Entities.Order", "Order")
+                        .WithMany("Histories")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+                });
+
             modelBuilder.Entity("EventModular.Server.Modules.Orders.Domain.Entities.OrderItem", b =>
                 {
                     b.HasOne("EventModular.Server.Modules.Orders.Domain.Entities.Order", "Order")
@@ -450,6 +507,8 @@ namespace EventModular.Server.Modules.Orders.Infrastructure.Migrations
 
             modelBuilder.Entity("EventModular.Server.Modules.Orders.Domain.Entities.Order", b =>
                 {
+                    b.Navigation("Histories");
+
                     b.Navigation("Items");
 
                     b.Navigation("Localizations");

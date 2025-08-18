@@ -1,0 +1,6 @@
+@EventModular.Server.Modules.Tags.Api_HostAddress = http://localhost:5049
+
+GET {{EventModular.Server.Modules.Tags.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

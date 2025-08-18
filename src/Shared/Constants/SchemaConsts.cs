@@ -1,7 +1,7 @@
 ﻿namespace EventModular.Shared.Constants;
 public static class SchemaConsts
 {
-    public const string Base = "base"; 
+    public const string Base = "base";
     public const string User = "user";
     public const string Organizer = "organizer";
     public const string Event = "event";
@@ -20,5 +20,9 @@ public static class SchemaConsts
     public const string Discount = "discount";
     public const string Course = "course";
     public const string TeamManagement = "teamManagement";
-    public const string PaymentGateway = "payment_gateway";
+    public const string Live = "live";
+    public const string Media = "media";
+    public const string Tag = "tag";
+    public const string Rate = "rate";
+    public const string Content = "content";
 }

@@ -15,7 +15,8 @@ public class OrderResponseDto
     public decimal GrandTotal { get; set; }
     public OrderStatus Status { get; set; }
 
-    public List<OrderItemRequestDto> Items { get; set; } = new();
+    public List<OrderItemResponseDto> Items { get; set; } = new();
+
     public List<OrderLocalizationDto>? Localizations { get; set; }
 }
 

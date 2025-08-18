@@ -8,9 +8,12 @@ public class EventRequestDto
     public string Location { get; set; } = string.Empty;
     public string DefaultLanguage { get; set; } = string.Empty;
     public string DefaultCurrency { get; set; } = string.Empty;
+    public Guid? PosterMediaId { get; set; }
     public List<Guid> CategoryIds { get; set; } = new();
     public List<EventLocalizationDto>? Localizations { get; set; }
 }
+
+
 public class EventLocalizationDto
 {
     public string Key { get; set; } = string.Empty;
