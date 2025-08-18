@@ -8,17 +8,18 @@ public class CourseResponseDto
     public decimal Price { get; set; }
     public bool IsPublished { get; set; }
     public DateTime? PublishDate { get; set; }
-    public string ThumbnailUrl { get; set; } = string.Empty;
+    public Guid? ThumbnailMediaId { get; set; }
 
     public List<CourseLocalizationDto>? Localizations { get; set; }
     public List<CourseSectionResponseDto>? Sections { get; set; }  
 }
 
+
 public class CourseSectionResponseDto : CourseSectionRequestDto
 {
     public Guid Id { get; set; }
     public IndexValue Index { get; set; }
-
+    public Guid? VideoMediaId { get; set; }
     public List<CourseSectionLocalizationDto>? Localizations { get; set; }
     public List<CourseLessonResponseDto>? Lessons { get; set; }  
 }

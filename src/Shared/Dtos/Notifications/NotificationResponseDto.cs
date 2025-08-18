@@ -5,8 +5,10 @@ public class NotificationResponseDto
 {
     public Guid Id { get; set; }
     public Guid UserId { get; set; }
-    public NotificationEntityType RelatedEntityType { get; set; }
-    public Guid? RelatedEntityId { get; set; }
+    public Guid? RelatedOwnerTypeId { get; set; }
+    public NotificationOwnerType RelatedOwnerType { get; set; }
+
+    public NotificationMethod Method { get; set; }
     public NotificationType Type { get; set; }
     public bool IsRead { get; set; }
 

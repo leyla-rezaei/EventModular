@@ -11,7 +11,9 @@ public class EventResponseDto
     public string Location { get; set; } = string.Empty;
     public string DefaultLanguage { get; set; } = string.Empty;
     public string DefaultCurrency { get; set; } = string.Empty;
-    public EventStatus EventStatus { get; set; } 
+    public EventStatus EventStatus { get; set; }
+    public Guid? PosterMediaId { get; set; }
+
 
     public List<EventLocalizationDto>? Localizations { get; set; } = new();
 

@@ -5,7 +5,8 @@ public class LiveRoomResponseDto : LiveRoomRequestDto
 
     public Guid EventId { get; set; }
     public Guid OrganizerId { get; set; }
-    public string? ThumbnailUrl { get; set; }
+    public Guid? ThumbnailMediaId { get; set; }
+    public Guid? RecordingMediaId { get; set; }
 
     public DateTimeOffset ScheduledStart { get; set; }
     public DateTimeOffset? ScheduledEnd { get; set; }
@@ -34,7 +35,6 @@ public class LiveRoomResponseDto : LiveRoomRequestDto
     public DateTimeOffset? ActualEnd { get; set; }
     public bool IsActive { get; set; }
     public bool IsRecorded { get; set; }
-    public string? RecordingUrl { get; set; }
     public bool AllowReplay { get; set; }
     public int CurrentParticipants { get; set; }
     public List<LiveRoomLocalizationDto>? Localizations { get; set; }

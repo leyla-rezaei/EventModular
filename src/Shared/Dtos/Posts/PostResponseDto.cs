@@ -22,6 +22,6 @@ public class PostResponseDto
     public int CommentCount { get; set; }
     public int ViewCount { get; set; }
     public int RevisionCount { get; set; }
-
+    public Guid? ThumbnailMediaId { get; set; }
     public List<PostLocalizationDto>? Localizations { get; set; }
 }

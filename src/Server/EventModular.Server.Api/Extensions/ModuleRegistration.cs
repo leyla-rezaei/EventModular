@@ -2,16 +2,20 @@
 using EventModular.Server.Modules.Categories.Infrastructure.Persistence;
 using EventModular.Server.Modules.Comments.Application.Mappers;
 using EventModular.Server.Modules.Comments.Infrastructure.Persistence;
+using EventModular.Server.Modules.Contents.Infrastructure.Persistence;
 using EventModular.Server.Modules.Courses.Infrastructure.Persistence;
 using EventModular.Server.Modules.Discounts.Infrastructure.Persistence;
 using EventModular.Server.Modules.Events.Infrastructure.Persistence;
 using EventModular.Server.Modules.Live.Infrastructure.Persistence;
+using EventModular.Server.Modules.Media.Infrastructure.Persistence;
 using EventModular.Server.Modules.Notifications.Infrastructure.Persistence;
 using EventModular.Server.Modules.Orders.Infrastructure.Persistence;
 using EventModular.Server.Modules.Organizer.Infrastructure.Persistence;
 using EventModular.Server.Modules.Payments.Infrastructure.Persistence;
 using EventModular.Server.Modules.Posts.Infrastructure.Persistence;
+using EventModular.Server.Modules.Rates.Infrastructure.Persistence;
 using EventModular.Server.Modules.Subdomains.Infrastructure.Persistence;
+using EventModular.Server.Modules.Tags.Infrastructure.Persistence;
 using EventModular.Server.Modules.TeamManagement.Infrastructure.Persistence;
 using EventModular.Server.Modules.Tickets.Infrastructure.Persistence;
 using Microsoft.Data.SqlClient;
@@ -114,6 +118,30 @@ public static class ModuleRegistration
         services.AddDbContext<LiveDbContext>(options =>
         {
             var connectionString = ReplaceCatalog(baseConnection, "LiveDb");
+            options.UseSqlServer(connectionString);
+        });
+
+        services.AddDbContext<MediaDbContext>(options =>
+        {
+            var connectionString = ReplaceCatalog(baseConnection, "MediaDb");
+            options.UseSqlServer(connectionString);
+        });
+
+        services.AddDbContext<ContentDbContext>(options =>
+        {
+            var connectionString = ReplaceCatalog(baseConnection, "ContentDb");
+            options.UseSqlServer(connectionString);
+        });
+
+        services.AddDbContext<TagDbContext>(options =>
+        {
+            var connectionString = ReplaceCatalog(baseConnection, "TagDb");
+            options.UseSqlServer(connectionString);
+        });
+
+        services.AddDbContext<RateDbContext>(options =>
+        {
+            var connectionString = ReplaceCatalog(baseConnection, "RateDb");
             options.UseSqlServer(connectionString);
         });
 
