@@ -11,4 +11,6 @@ public class LiveQuestion : BaseEntity
     public DateTimeOffset AskedAt { get; set; }
     public DateTimeOffset? AnsweredAt { get; set; }
     public Guid? AnsweredById { get; set; }
+
+    public ICollection<LivePollOptionLocalization> Localizations { get; set; } = new List<LivePollOptionLocalization>();  
 }

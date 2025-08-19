@@ -56,13 +56,44 @@ namespace EventModular.Server.Modules.Courses.Infrastructure.Migrations
                     b.Property<Guid>("SubdomainId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("ThumbnailUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid?>("ThumbnailMediaId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
                     b.ToTable("Course", "course");
+                });
+
+            modelBuilder.Entity("EventModular.Server.Modules.Courses.Domain.Entities.CourseCategory", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CategoryId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CourseId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CreatedById")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("CreationDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<bool>("IsArchived")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid?>("LastModificationById")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset?>("ModificationDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CourseCategory", "Course");
                 });
 
             modelBuilder.Entity("EventModular.Server.Modules.Courses.Domain.Entities.CourseLesson", b =>
@@ -92,9 +123,8 @@ namespace EventModular.Server.Modules.Courses.Infrastructure.Migrations
                     b.Property<DateTimeOffset?>("ModificationDate")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<string>("VideoUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid?>("VideoMediaId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.ComplexProperty<Dictionary<string, object>>("Index", "EventModular.Server.Modules.Courses.Domain.Entities.CourseLesson.Index#IndexValue", b1 =>
                         {

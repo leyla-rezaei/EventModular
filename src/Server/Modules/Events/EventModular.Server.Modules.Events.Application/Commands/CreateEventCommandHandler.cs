@@ -23,6 +23,7 @@ public class CreateEventCommandHandler : IRequestHandler<CreateEventCommand, Eve
             EndTime = request.dto.EndTime,
             Location = request.dto.Location,
             EventStatus = status,
+             PosterMediaId = request.dto.PosterMediaId,
             Localizations = request.dto.Localizations?.Select(x => new EventLocalization
             {
                 Key = x.Key,
@@ -57,6 +58,7 @@ public class CreateEventCommandHandler : IRequestHandler<CreateEventCommand, Eve
             EndTime = entity.EndTime,
             OrganizerId = entity.OrganizerId,
             Location = entity.Location,
+            PosterMediaId = entity.PosterMediaId,
             Localizations = entity.Localizations.Select(x => new EventLocalizationDto
             {
                 Key = x.Key,

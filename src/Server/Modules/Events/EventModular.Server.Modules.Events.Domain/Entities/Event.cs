@@ -15,6 +15,8 @@ public class Event : BaseEntity
     public EventStatus EventStatus { get; set; }
     public string DefaultLanguage { get; set; } = string.Empty;
     public string DefaultCurrency { get; set; } = string.Empty;
+ 
+    public Guid? PosterMediaId { get; set; }
 
     public ICollection<EventLocalization> Localizations { get; set; } = new List<EventLocalization>();
 }

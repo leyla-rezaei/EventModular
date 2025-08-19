@@ -34,6 +34,7 @@ namespace EventModular.Server.Modules.Events.Infrastructure.Migrations
                     EventStatus = table.Column<int>(type: "int", nullable: false),
                     DefaultLanguage = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DefaultCurrency = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PosterMediaId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CreationDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     ModificationDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     IsArchived = table.Column<bool>(type: "bit", nullable: false),

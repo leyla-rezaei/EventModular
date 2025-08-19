@@ -46,14 +46,17 @@ namespace EventModular.Server.Modules.Notifications.Infrastructure.Migrations
                     b.Property<Guid?>("LastModificationById")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("Method")
+                        .HasColumnType("int");
+
                     b.Property<DateTimeOffset?>("ModificationDate")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<Guid?>("RelatedEntityId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("RelatedEntityType")
+                    b.Property<int>("RelatedOwnerType")
                         .HasColumnType("int");
+
+                    b.Property<Guid?>("RelatedOwnerTypeId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Type")
                         .HasColumnType("int");
