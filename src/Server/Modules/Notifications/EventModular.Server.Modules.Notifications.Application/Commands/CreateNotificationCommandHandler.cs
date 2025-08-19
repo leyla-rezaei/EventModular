@@ -20,10 +20,10 @@ public class CreateNotificationCommandHandler
         var entity = new Notification
         {
             UserId = request.dto.UserId,
-            RelatedEntityType = request.dto.RelatedEntityType,
-            RelatedEntityId = request.dto.RelatedEntityId,
+            RelatedOwnerType = request.dto.RelatedOwnerType,
             Type = request.dto.Type,
             IsRead = request.dto.IsRead,
+            Method = request.dto.Method,
             DataJson = request.dto.Data != null
                 ? JsonSerializer.Serialize(request.dto.Data)
                 : null,
@@ -41,8 +41,8 @@ public class CreateNotificationCommandHandler
         {
             Id = entity.Id,
             UserId = entity.UserId,
-            RelatedEntityType = entity.RelatedEntityType,
-            RelatedEntityId = entity.RelatedEntityId,
+            RelatedOwnerTypeId = entity.RelatedOwnerTypeId,
+             Method = entity.Method,    
             Type = entity.Type,
             IsRead = entity.IsRead,
             Data = entity.DataJson != null

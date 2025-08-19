@@ -34,7 +34,8 @@ public class CreatePostCommandHandler : IRequestHandler<CreatePostCommand, PostR
             WriterId = request.OrganizerId,  
             Revision = request.Post.Revision,
             CommentCount = 0,
-            ViewCount = 0,
+            ViewCount = 0, 
+            ThumbnailMediaId = request.Post.ThumbnailMediaId,
             RevisionCount = 1,
             Localizations = request.Post.Localizations?.Select(x => new PostLocalization
             {
@@ -66,6 +67,7 @@ public class CreatePostCommandHandler : IRequestHandler<CreatePostCommand, PostR
             CommentCount = entity.CommentCount,
             ViewCount = entity.ViewCount,
             RevisionCount = entity.RevisionCount,
+            ThumbnailMediaId = entity.ThumbnailMediaId,
             Localizations = entity.Localizations.Select(x => new PostLocalizationDto
             {
                 Slug = x.Slug,

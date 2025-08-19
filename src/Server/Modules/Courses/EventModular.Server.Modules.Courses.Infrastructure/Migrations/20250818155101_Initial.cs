@@ -15,6 +15,9 @@ namespace EventModular.Server.Modules.Courses.Infrastructure.Migrations
                 name: "course");
 
             migrationBuilder.EnsureSchema(
+                name: "Course");
+
+            migrationBuilder.EnsureSchema(
                 name: "localization");
 
             migrationBuilder.CreateTable(
@@ -27,7 +30,7 @@ namespace EventModular.Server.Modules.Courses.Infrastructure.Migrations
                     SubdomainId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     IsPublished = table.Column<bool>(type: "bit", nullable: false),
                     PublishDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ThumbnailUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ThumbnailMediaId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CreationDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     ModificationDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     IsArchived = table.Column<bool>(type: "bit", nullable: false),
@@ -37,6 +40,25 @@ namespace EventModular.Server.Modules.Courses.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Course", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CourseCategory",
+                schema: "Course",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CourseId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreationDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    ModificationDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    IsArchived = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    LastModificationById = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CourseCategory", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -128,7 +150,7 @@ namespace EventModular.Server.Modules.Courses.Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CourseSectionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    VideoUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    VideoMediaId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Duration = table.Column<TimeSpan>(type: "time", nullable: false),
                     Index_Value = table.Column<int>(type: "int", nullable: false),
                     CreationDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
@@ -245,6 +267,10 @@ namespace EventModular.Server.Modules.Courses.Infrastructure.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "CourseCategory",
+                schema: "Course");
+
             migrationBuilder.DropTable(
                 name: "CourseLessonLocalization",
                 schema: "localization");

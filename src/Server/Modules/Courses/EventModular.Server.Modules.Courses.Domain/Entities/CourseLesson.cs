@@ -10,8 +10,7 @@ public class CourseLesson : BaseEntity
     public CourseSection CourseSection { get; set; }
 
     public IndexValue Index { get; set; }
-
-    public string VideoUrl { get; set; } = string.Empty;
+    public Guid? VideoMediaId { get; set; }
     public TimeSpan Duration { get; set; }
 
     public ICollection<CourseLessonLocalization> Localizations { get; set; } = new List<CourseLessonLocalization>();

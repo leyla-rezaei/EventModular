@@ -17,7 +17,8 @@ public class CreateCourseCommandHandler : IRequestHandler<CreateCourseCommand, C
             OrganizerId = request.dto.OrganizerId,
             IsPublished = request.dto.IsPublished,
             PublishDate = request.dto.PublishDate,
-            ThumbnailUrl = request.dto.ThumbnailUrl,
+            ThumbnailMediaId = request.dto.ThumbnailMediaId,  
+
             Localizations = request.dto.Localizations?.Select(x => new CourseLocalization
             {
                 Key = x.Key,
@@ -58,7 +59,7 @@ public class CreateCourseCommandHandler : IRequestHandler<CreateCourseCommand, C
             OrganizerId = entity.OrganizerId,
             IsPublished = entity.IsPublished,
             PublishDate = entity.PublishDate,
-            ThumbnailUrl = entity.ThumbnailUrl,
+            ThumbnailMediaId = entity.ThumbnailMediaId,
             Localizations = entity.Localizations.Select(x => new CourseLocalizationDto
             {
                 Key = x.Key,

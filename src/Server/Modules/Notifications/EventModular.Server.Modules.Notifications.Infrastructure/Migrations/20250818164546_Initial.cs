@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace EventModular.Server.Modules.Posts.Infrastructure.Migrations
+namespace EventModular.Server.Modules.Notifications.Infrastructure.Migrations
 {
     /// <inheritdoc />
     public partial class Initial : Migration
@@ -12,20 +12,24 @@ namespace EventModular.Server.Modules.Posts.Infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.EnsureSchema(
-                name: "subdomain");
+                name: "notification");
 
             migrationBuilder.EnsureSchema(
                 name: "localization");
 
             migrationBuilder.CreateTable(
-                name: "Subdomain",
-                schema: "subdomain",
+                name: "Notification",
+                schema: "notification",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    OrganizerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    DomainName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    RelatedOwnerTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    RelatedOwnerType = table.Column<int>(type: "int", nullable: false),
+                    Method = table.Column<int>(type: "int", nullable: false),
+                    Type = table.Column<int>(type: "int", nullable: false),
+                    IsRead = table.Column<bool>(type: "bit", nullable: false),
+                    DataJson = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreationDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     ModificationDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     IsArchived = table.Column<bool>(type: "bit", nullable: false),
@@ -34,18 +38,18 @@ namespace EventModular.Server.Modules.Posts.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Subdomain", x => x.Id);
+                    table.PrimaryKey("PK_Notification", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "SubdomainLocalization",
+                name: "NotificationLocalization",
                 schema: "localization",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    SubdomainId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    NotificationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Message = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreationDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     ModificationDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     IsArchived = table.Column<bool>(type: "bit", nullable: false),
@@ -55,33 +59,33 @@ namespace EventModular.Server.Modules.Posts.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SubdomainLocalization", x => x.Id);
+                    table.PrimaryKey("PK_NotificationLocalization", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SubdomainLocalization_Subdomain_SubdomainId",
-                        column: x => x.SubdomainId,
-                        principalSchema: "subdomain",
-                        principalTable: "Subdomain",
+                        name: "FK_NotificationLocalization_Notification_NotificationId",
+                        column: x => x.NotificationId,
+                        principalSchema: "notification",
+                        principalTable: "Notification",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_SubdomainLocalization_SubdomainId",
+                name: "IX_NotificationLocalization_NotificationId",
                 schema: "localization",
-                table: "SubdomainLocalization",
-                column: "SubdomainId");
+                table: "NotificationLocalization",
+                column: "NotificationId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "SubdomainLocalization",
+                name: "NotificationLocalization",
                 schema: "localization");
 
             migrationBuilder.DropTable(
-                name: "Subdomain",
-                schema: "subdomain");
+                name: "Notification",
+                schema: "notification");
         }
     }
 }

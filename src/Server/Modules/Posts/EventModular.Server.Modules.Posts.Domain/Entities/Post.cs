@@ -25,6 +25,7 @@ public class Post : BaseEntity
     public int CommentCount { get; set; }
     public int ViewCount { get; set; }
     public int RevisionCount { get; set; }
+    public Guid? ThumbnailMediaId { get; set; }
 
     public ICollection<PostLocalization> Localizations { get; set; }
     

@@ -7,7 +7,8 @@ public class NotificationValidation : AbstractValidator<NotificationRequestDto>
     public NotificationValidation()
     {
         RuleFor(x => x.UserId).NotEmpty();
-      
+        RuleFor(x => x.Method).NotEmpty();
+
         RuleForEach(x => x.Localizations)
             .SetValidator(new NotificationLocalizationValidation());
     }

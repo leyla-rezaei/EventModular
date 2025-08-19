@@ -22,11 +22,14 @@ namespace EventModular.Server.Modules.Posts.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("EventModular.Server.Modules.Subdomains.Domain.Entities.Subdomain", b =>
+            modelBuilder.Entity("EventModular.Server.Modules.Posts.Domain.Entities.Post", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("CommentCount")
+                        .HasColumnType("int");
 
                     b.Property<Guid?>("CreatedById")
                         .HasColumnType("uniqueidentifier");
@@ -34,12 +37,91 @@ namespace EventModular.Server.Modules.Posts.Infrastructure.Migrations
                     b.Property<DateTimeOffset>("CreationDate")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<string>("DomainName")
+                    b.Property<bool>("IsAllowPinbacks")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsArchived")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsCommentsAllowed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsPrivate")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsSchedulingPublish")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid?>("LastModificationById")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset?>("ModificationDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<int?>("Order")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("ParentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                    b.Property<int>("PostFormat")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PostType")
+                        .HasColumnType("int");
+
+                    b.Property<DateTimeOffset?>("PublishOn")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<int>("PublishStatus")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Revision")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RevisionCount")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("SubdomainId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ThumbnailMediaId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("ViewCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Visibility")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("WriterId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ParentId");
+
+                    b.ToTable("Post", "Post");
+                });
+
+            modelBuilder.Entity("EventModular.Server.Modules.Posts.Domain.Entities.PostCategory", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CategoryId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CreatedById")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("CreationDate")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<bool>("IsArchived")
                         .HasColumnType("bit");
@@ -50,15 +132,15 @@ namespace EventModular.Server.Modules.Posts.Infrastructure.Migrations
                     b.Property<DateTimeOffset?>("ModificationDate")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<Guid>("OrganizerId")
+                    b.Property<Guid>("PostId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Subdomain", "subdomain");
+                    b.ToTable("PostCategory", "Post");
                 });
 
-            modelBuilder.Entity("EventModular.Server.Modules.Subdomains.Domain.Entities.SubdomainLocalization", b =>
+            modelBuilder.Entity("EventModular.Server.Modules.Posts.Domain.Entities.PostLocalization", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -69,10 +151,6 @@ namespace EventModular.Server.Modules.Posts.Infrastructure.Migrations
 
                     b.Property<DateTimeOffset>("CreationDate")
                         .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsArchived")
                         .HasColumnType("bit");
@@ -87,32 +165,45 @@ namespace EventModular.Server.Modules.Posts.Infrastructure.Migrations
                     b.Property<DateTimeOffset?>("ModificationDate")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<Guid>("SubdomainId")
+                    b.Property<Guid>("PostId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Title")
+                    b.Property<string>("Slug")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Tags")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SubdomainId");
+                    b.HasIndex("PostId");
 
-                    b.ToTable("SubdomainLocalization", "localization");
+                    b.ToTable("PostLocalization", "Localization");
                 });
 
-            modelBuilder.Entity("EventModular.Server.Modules.Subdomains.Domain.Entities.SubdomainLocalization", b =>
+            modelBuilder.Entity("EventModular.Server.Modules.Posts.Domain.Entities.Post", b =>
                 {
-                    b.HasOne("EventModular.Server.Modules.Subdomains.Domain.Entities.Subdomain", "Subdomain")
+                    b.HasOne("EventModular.Server.Modules.Posts.Domain.Entities.Post", "Parent")
+                        .WithMany()
+                        .HasForeignKey("ParentId");
+
+                    b.Navigation("Parent");
+                });
+
+            modelBuilder.Entity("EventModular.Server.Modules.Posts.Domain.Entities.PostLocalization", b =>
+                {
+                    b.HasOne("EventModular.Server.Modules.Posts.Domain.Entities.Post", "Post")
                         .WithMany("Localizations")
-                        .HasForeignKey("SubdomainId")
+                        .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Subdomain");
+                    b.Navigation("Post");
                 });
 
-            modelBuilder.Entity("EventModular.Server.Modules.Subdomains.Domain.Entities.Subdomain", b =>
+            modelBuilder.Entity("EventModular.Server.Modules.Posts.Domain.Entities.Post", b =>
                 {
                     b.Navigation("Localizations");
                 });
