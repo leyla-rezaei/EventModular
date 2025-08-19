@@ -16,4 +16,8 @@
     <ProjectReference Include="..\EventModular.Server.Modules.Discounts.Infrastructure\EventModular.Server.Modules.Discounts.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
 </Project>

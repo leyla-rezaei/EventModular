@@ -16,4 +16,8 @@
       <ProjectReference Include="..\EventModular.Server.Modules.Notifications.Infrastructure\EventModular.Server.Modules.Notifications.Infrastructure.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Controllers\" />
+    </ItemGroup>
+
 </Project>
