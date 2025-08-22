@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EventModular.Server.Modules.Live.Infrastructure.Migrations
 {
     [DbContext(typeof(LiveDbContext))]
-    [Migration("20250818161809_Initial")]
+    [Migration("20250822170919_Initial")]
     partial class Initial
     {
         /// <inheritdoc />

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EventModular.Server.Modules.Media.Infrastructure.Migrations
 {
     [DbContext(typeof(MediaDbContext))]
-    [Migration("20250818151441_Initial")]
+    [Migration("20250822171041_Initial")]
     partial class Initial
     {
         /// <inheritdoc />

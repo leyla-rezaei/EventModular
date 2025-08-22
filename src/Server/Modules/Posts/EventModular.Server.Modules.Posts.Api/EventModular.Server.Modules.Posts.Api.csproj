@@ -6,6 +6,13 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Controllers\**" />
+    <Content Remove="Controllers\**" />
+    <EmbeddedResource Remove="Controllers\**" />
+    <None Remove="Controllers\**" />
+  </ItemGroup>
+
     <ItemGroup>
         <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
@@ -15,9 +22,5 @@
     <ItemGroup>
       <ProjectReference Include="..\EventModular.Server.Modules.Posts.Application\EventModular.Server.Modules.Posts.Application.csproj" />
       <ProjectReference Include="..\EventModular.Server.Modules.Posts.Infrastructure\EventModular.Server.Modules.Posts.Infrastructure.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Controllers\" />
     </ItemGroup>
 </Project>

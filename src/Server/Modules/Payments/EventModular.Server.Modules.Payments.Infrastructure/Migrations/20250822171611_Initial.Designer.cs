@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EventModular.Server.Modules.Payments.Infrastructure.Migrations
 {
     [DbContext(typeof(PaymentDbContext))]
-    [Migration("20250817090125_Initial")]
+    [Migration("20250822171611_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
