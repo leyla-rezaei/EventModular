@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EventModular.Server.Modules.Media.Infrastructure.Migrations
 {
     [DbContext(typeof(MediaDbContext))]
-    [Migration("20250822171041_Initial")]
+    [Migration("20250822183735_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -102,6 +102,9 @@ namespace EventModular.Server.Modules.Media.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("CommentMediaId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid?>("CreatedById")
                         .HasColumnType("uniqueidentifier");
 
@@ -133,9 +136,11 @@ namespace EventModular.Server.Modules.Media.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CommentMediaId");
+
                     b.HasIndex("MediaFileId");
 
-                    b.ToTable("MediaFileLocalization", "localization");
+                    b.ToTable("MediaFileLocalization", "Localization");
 
                     b.UseTptMappingStrategy();
                 });
@@ -268,8 +273,12 @@ namespace EventModular.Server.Modules.Media.Infrastructure.Migrations
 
             modelBuilder.Entity("EventModular.Server.Modules.Media.Domain.Entities.MediaFileLocalization", b =>
                 {
-                    b.HasOne("EventModular.Server.Modules.Media.Domain.Entities.MediaFile", "MediaFile")
+                    b.HasOne("EventModular.Server.Modules.Media.Domain.Entities.CommentMedia", null)
                         .WithMany("Localizations")
+                        .HasForeignKey("CommentMediaId");
+
+                    b.HasOne("EventModular.Server.Modules.Media.Domain.Entities.MediaFile", "MediaFile")
+                        .WithMany()
                         .HasForeignKey("MediaFileId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -318,7 +327,7 @@ namespace EventModular.Server.Modules.Media.Infrastructure.Migrations
             modelBuilder.Entity("EventModular.Server.Modules.Media.Domain.Entities.EventMediaLocalization", b =>
                 {
                     b.HasOne("EventModular.Server.Modules.Media.Domain.Entities.EventMedia", "EventMedia")
-                        .WithMany()
+                        .WithMany("Localizations")
                         .HasForeignKey("EventMediaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -326,7 +335,7 @@ namespace EventModular.Server.Modules.Media.Infrastructure.Migrations
                     b.HasOne("EventModular.Server.Modules.Media.Domain.Entities.MediaFileLocalization", null)
                         .WithOne()
                         .HasForeignKey("EventModular.Server.Modules.Media.Domain.Entities.EventMediaLocalization", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("EventMedia");
@@ -337,11 +346,11 @@ namespace EventModular.Server.Modules.Media.Infrastructure.Migrations
                     b.HasOne("EventModular.Server.Modules.Media.Domain.Entities.MediaFileLocalization", null)
                         .WithOne()
                         .HasForeignKey("EventModular.Server.Modules.Media.Domain.Entities.PostMediaLocalization", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("EventModular.Server.Modules.Media.Domain.Entities.PostMedia", "PostMedia")
-                        .WithMany()
+                        .WithMany("Localizations")
                         .HasForeignKey("PostMediaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -351,9 +360,22 @@ namespace EventModular.Server.Modules.Media.Infrastructure.Migrations
 
             modelBuilder.Entity("EventModular.Server.Modules.Media.Domain.Entities.MediaFile", b =>
                 {
-                    b.Navigation("Localizations");
-
                     b.Navigation("Usages");
+                });
+
+            modelBuilder.Entity("EventModular.Server.Modules.Media.Domain.Entities.CommentMedia", b =>
+                {
+                    b.Navigation("Localizations");
+                });
+
+            modelBuilder.Entity("EventModular.Server.Modules.Media.Domain.Entities.EventMedia", b =>
+                {
+                    b.Navigation("Localizations");
+                });
+
+            modelBuilder.Entity("EventModular.Server.Modules.Media.Domain.Entities.PostMedia", b =>
+                {
+                    b.Navigation("Localizations");
                 });
 #pragma warning restore 612, 618
         }

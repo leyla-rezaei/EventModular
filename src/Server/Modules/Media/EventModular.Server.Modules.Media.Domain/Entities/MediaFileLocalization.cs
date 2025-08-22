@@ -2,7 +2,7 @@
 using EventModular.Shared.Constants;
 
 namespace EventModular.Server.Modules.Media.Domain.Entities;
-[Table(nameof(MediaFileLocalization), Schema = SchemaConsts.Localization)]
+[Table(nameof(MediaFileLocalization), Schema = nameof(SchemaConsts.Localization))]
 public class MediaFileLocalization : BaseLocalization
 {
     public Guid MediaFileId { get; set; }

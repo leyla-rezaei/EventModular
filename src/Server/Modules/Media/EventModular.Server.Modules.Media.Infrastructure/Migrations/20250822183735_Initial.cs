@@ -20,9 +20,6 @@ namespace EventModular.Server.Modules.Media.Infrastructure.Migrations
             migrationBuilder.EnsureSchema(
                 name: "media");
 
-            migrationBuilder.EnsureSchema(
-                name: "localization");
-
             migrationBuilder.CreateTable(
                 name: "MediaFile",
                 schema: "media",
@@ -95,34 +92,6 @@ namespace EventModular.Server.Modules.Media.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MediaFileLocalization",
-                schema: "localization",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    MediaFileId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    DisplayName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreationDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    ModificationDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    IsArchived = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    LastModificationById = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    Key = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MediaFileLocalization", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_MediaFileLocalization_MediaFile_MediaFileId",
-                        column: x => x.MediaFileId,
-                        principalSchema: "media",
-                        principalTable: "MediaFile",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "MediaUsage",
                 schema: "media",
                 columns: table => new
@@ -172,6 +141,41 @@ namespace EventModular.Server.Modules.Media.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "MediaFileLocalization",
+                schema: "Localization",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    MediaFileId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    DisplayName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CommentMediaId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    CreationDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    ModificationDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    IsArchived = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    LastModificationById = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    Key = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MediaFileLocalization", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MediaFileLocalization_CommentMedia_CommentMediaId",
+                        column: x => x.CommentMediaId,
+                        principalSchema: "Media",
+                        principalTable: "CommentMedia",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_MediaFileLocalization_MediaFile_MediaFileId",
+                        column: x => x.MediaFileId,
+                        principalSchema: "media",
+                        principalTable: "MediaFile",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "EventMediaLocalization",
                 schema: "Localization",
                 columns: table => new
@@ -196,10 +200,10 @@ namespace EventModular.Server.Modules.Media.Infrastructure.Migrations
                     table.ForeignKey(
                         name: "FK_EventMediaLocalization_MediaFileLocalization_Id",
                         column: x => x.Id,
-                        principalSchema: "localization",
+                        principalSchema: "Localization",
                         principalTable: "MediaFileLocalization",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -219,10 +223,10 @@ namespace EventModular.Server.Modules.Media.Infrastructure.Migrations
                     table.ForeignKey(
                         name: "FK_PostMediaLocalization_MediaFileLocalization_Id",
                         column: x => x.Id,
-                        principalSchema: "localization",
+                        principalSchema: "Localization",
                         principalTable: "MediaFileLocalization",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_PostMediaLocalization_PostMedia_PostMediaId",
                         column: x => x.PostMediaId,
@@ -239,8 +243,14 @@ namespace EventModular.Server.Modules.Media.Infrastructure.Migrations
                 column: "EventMediaId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_MediaFileLocalization_CommentMediaId",
+                schema: "Localization",
+                table: "MediaFileLocalization",
+                column: "CommentMediaId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_MediaFileLocalization_MediaFileId",
-                schema: "localization",
+                schema: "Localization",
                 table: "MediaFileLocalization",
                 column: "MediaFileId");
 
@@ -261,10 +271,6 @@ namespace EventModular.Server.Modules.Media.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CommentMedia",
-                schema: "Media");
-
-            migrationBuilder.DropTable(
                 name: "EventMediaLocalization",
                 schema: "Localization");
 
@@ -282,10 +288,14 @@ namespace EventModular.Server.Modules.Media.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "MediaFileLocalization",
-                schema: "localization");
+                schema: "Localization");
 
             migrationBuilder.DropTable(
                 name: "PostMedia",
+                schema: "Media");
+
+            migrationBuilder.DropTable(
+                name: "CommentMedia",
                 schema: "Media");
 
             migrationBuilder.DropTable(
