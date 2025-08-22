@@ -139,7 +139,7 @@ namespace EventModular.Server.Modules.Comments.Infrastructure.Migrations
                     b.Property<bool>("IsBuyer")
                         .HasColumnType("bit");
 
-                    b.ToTable("CourseComment", "post");
+                    b.ToTable("CourseComment", "comment");
                 });
 
             modelBuilder.Entity("EventModular.Server.Modules.Comments.Domain.Entities.EventComment", b =>
@@ -152,7 +152,7 @@ namespace EventModular.Server.Modules.Comments.Infrastructure.Migrations
                     b.Property<bool>("IsBuyer")
                         .HasColumnType("bit");
 
-                    b.ToTable("EventComment", "post");
+                    b.ToTable("EventComment", "comment");
                 });
 
             modelBuilder.Entity("EventModular.Server.Modules.Comments.Domain.Entities.PostComment", b =>
@@ -162,7 +162,7 @@ namespace EventModular.Server.Modules.Comments.Infrastructure.Migrations
                     b.Property<Guid>("PostId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.ToTable("PostComment", "post");
+                    b.ToTable("PostComment", "comment");
                 });
 
             modelBuilder.Entity("EventModular.Server.Modules.Comments.Domain.Entities.Comment", b =>

@@ -15,7 +15,7 @@ namespace EventModular.Server.Modules.Comments.Infrastructure.Migrations
                 name: "Localization");
 
             migrationBuilder.EnsureSchema(
-                name: "post");
+                name: "comment");
 
             migrationBuilder.CreateTable(
                 name: "Comment",
@@ -83,7 +83,7 @@ namespace EventModular.Server.Modules.Comments.Infrastructure.Migrations
 
             migrationBuilder.CreateTable(
                 name: "CourseComment",
-                schema: "post",
+                schema: "comment",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -103,7 +103,7 @@ namespace EventModular.Server.Modules.Comments.Infrastructure.Migrations
 
             migrationBuilder.CreateTable(
                 name: "EventComment",
-                schema: "post",
+                schema: "comment",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -123,7 +123,7 @@ namespace EventModular.Server.Modules.Comments.Infrastructure.Migrations
 
             migrationBuilder.CreateTable(
                 name: "PostComment",
-                schema: "post",
+                schema: "comment",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -166,15 +166,15 @@ namespace EventModular.Server.Modules.Comments.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "CourseComment",
-                schema: "post");
+                schema: "comment");
 
             migrationBuilder.DropTable(
                 name: "EventComment",
-                schema: "post");
+                schema: "comment");
 
             migrationBuilder.DropTable(
                 name: "PostComment",
-                schema: "post");
+                schema: "comment");
 
             migrationBuilder.DropTable(
                 name: "Comment");

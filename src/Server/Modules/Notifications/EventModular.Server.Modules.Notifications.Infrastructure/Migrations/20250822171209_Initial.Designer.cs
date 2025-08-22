@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EventModular.Server.Modules.Notifications.Infrastructure.Migrations
 {
     [DbContext(typeof(NotificationDbContext))]
-    [Migration("20250818164546_Initial")]
+    [Migration("20250822171209_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
