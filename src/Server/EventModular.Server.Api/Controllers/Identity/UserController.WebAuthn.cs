@@ -112,9 +112,12 @@ public partial class UserController
         var user = await userManager.FindByIdAsync(userId.ToString())
                     ?? throw new ResourceNotFoundException();
 
+        var credId = new Guid(assertionResponse.Id);
+
         var affectedRows = await DbContext.WebAuthnCredential
-            .Where(webAuthCred => webAuthCred.Id == assertionResponse.Id)
+            .Where(webAuthCred => new Guid(webAuthCred.Id) == credId)
             .ExecuteDeleteAsync(cancellationToken);
+
 
         if (affectedRows == 0)
             throw new ResourceNotFoundException();
