@@ -1,8 +1,9 @@
-﻿using EventModular.Shared.Constants;
+﻿using EventModular.Shared.Base.Entities;
+using EventModular.Shared.Constants;
 
 namespace EventModular.Server.Modules.Media.Domain.Entities;
 [Table(nameof(EventMediaLocalization), Schema = nameof(SchemaConsts.Localization))]
-public class EventMediaLocalization 
+public class EventMediaLocalization : BaseLocalization
 {
     public string Title { get; set; } = string.Empty;
     public string Alt { get; set; } = string.Empty;

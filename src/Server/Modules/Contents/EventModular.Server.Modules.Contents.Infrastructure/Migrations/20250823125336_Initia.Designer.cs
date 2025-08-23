@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EventModular.Server.Modules.Contents.Infrastructure.Migrations
 {
     [DbContext(typeof(ContentDbContext))]
-    [Migration("20250823111819_Initial")]
-    partial class Initial
+    [Migration("20250823125336_Initia")]
+    partial class Initia
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -137,6 +137,56 @@ namespace EventModular.Server.Modules.Contents.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("PostContent", "Content");
+                });
+
+            modelBuilder.Entity("EventModular.Server.Modules.Contents.Domain.Entities.PostContentLocalization", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ContentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CreatedById")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("CreationDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Excerpt")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsArchived")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Key")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("LastModificationById")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset?>("ModificationDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ContentId");
+
+                    b.ToTable("PostContentLocalization", "Localization");
+                });
+
+            modelBuilder.Entity("EventModular.Server.Modules.Contents.Domain.Entities.PostContentLocalization", b =>
+                {
+                    b.HasOne("EventModular.Server.Modules.Contents.Domain.Entities.PostContent", "Content")
+                        .WithMany()
+                        .HasForeignKey("ContentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Content");
                 });
 #pragma warning restore 612, 618
         }

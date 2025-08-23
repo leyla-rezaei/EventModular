@@ -1,8 +1,9 @@
-﻿using EventModular.Shared.Constants;
+﻿using EventModular.Shared.Base.Entities;
+using EventModular.Shared.Constants;
 
 namespace EventModular.Server.Modules.Contents.Domain.Entities;
 [Table(nameof(PostContentLocalization), Schema = nameof(SchemaConsts.Localization))]
-public class PostContentLocalization 
+public class PostContentLocalization : BaseLocalization
 {
     public Guid ContentId { get; set; }
     public PostContent Content { get; set; }

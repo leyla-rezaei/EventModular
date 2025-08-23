@@ -11,7 +11,7 @@ public class ContentRequestDto
 
 public class ContentLocalizationDto
 {
-    public string Key { get; set; }
+    public string key { get; set; } = string.Empty;
     public string Title { get; set; }
     public string Body { get; set; }
 }
@@ -24,6 +24,7 @@ public class PostContentRequestDto : ContentRequestDto
 
 public class PostContentLocalizationDto 
 {
+    public string key { get; set; } = string.Empty;
     public string? Excerpt { get; set; }
 }
 

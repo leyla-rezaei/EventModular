@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace EventModular.Server.Modules.Media.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class Initia : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,10 +15,10 @@ namespace EventModular.Server.Modules.Media.Infrastructure.Migrations
                 name: "Media");
 
             migrationBuilder.EnsureSchema(
-                name: "media");
+                name: "Localization");
 
             migrationBuilder.EnsureSchema(
-                name: "Localization");
+                name: "media");
 
             migrationBuilder.CreateTable(
                 name: "MediaFile",
@@ -139,11 +139,83 @@ namespace EventModular.Server.Modules.Media.Infrastructure.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "EventMediaLocalization",
+                schema: "Localization",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Alt = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Caption = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ShortDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EventMediaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreationDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    ModificationDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    IsArchived = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    LastModificationById = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    Key = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EventMediaLocalization", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_EventMediaLocalization_EventMedia_EventMediaId",
+                        column: x => x.EventMediaId,
+                        principalSchema: "Media",
+                        principalTable: "EventMedia",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PostMediaLocalization",
+                schema: "Localization",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Alt = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ShortDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PostMediaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreationDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    ModificationDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    IsArchived = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    LastModificationById = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    Key = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PostMediaLocalization", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PostMediaLocalization_PostMedia_PostMediaId",
+                        column: x => x.PostMediaId,
+                        principalSchema: "Media",
+                        principalTable: "PostMedia",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EventMediaLocalization_EventMediaId",
+                schema: "Localization",
+                table: "EventMediaLocalization",
+                column: "EventMediaId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_MediaFileLocalization_MediaFileId",
                 schema: "Localization",
                 table: "MediaFileLocalization",
                 column: "MediaFileId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PostMediaLocalization_PostMediaId",
+                schema: "Localization",
+                table: "PostMediaLocalization",
+                column: "PostMediaId");
         }
 
         /// <inheritdoc />
@@ -154,12 +226,20 @@ namespace EventModular.Server.Modules.Media.Infrastructure.Migrations
                 schema: "Media");
 
             migrationBuilder.DropTable(
-                name: "EventMedia",
-                schema: "Media");
+                name: "EventMediaLocalization",
+                schema: "Localization");
 
             migrationBuilder.DropTable(
                 name: "MediaFileLocalization",
                 schema: "Localization");
+
+            migrationBuilder.DropTable(
+                name: "PostMediaLocalization",
+                schema: "Localization");
+
+            migrationBuilder.DropTable(
+                name: "EventMedia",
+                schema: "Media");
 
             migrationBuilder.DropTable(
                 name: "PostMedia",

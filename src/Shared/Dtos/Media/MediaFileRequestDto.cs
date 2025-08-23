@@ -37,6 +37,7 @@ public class PostMediaRequestDto : MediaFileRequestDto
 
 public class PostMediaLocalizationDto
 {
+    public string key { get; set; } = string.Empty;
     public string Title { get; set; } = string.Empty;
     public string Alt { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
@@ -58,6 +59,7 @@ public class EventMediaRequestDto : MediaFileRequestDto
 
 public class EventMediaLocalizationDto 
 {
+    public string key { get; set; } = string.Empty;
     public string Title { get; set; } = string.Empty;
     public string Alt { get; set; } = string.Empty;
     public string? Caption { get; set; }
