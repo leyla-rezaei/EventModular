@@ -2,7 +2,7 @@
 
 namespace EventModular.Server.Modules.Contents.Domain.Entities;
 [Table(nameof(PostContentLocalization), Schema = nameof(SchemaConsts.Localization))]
-public class PostContentLocalization : ContentLocalization
+public class PostContentLocalization 
 {
     public Guid ContentId { get; set; }
     public PostContent Content { get; set; }

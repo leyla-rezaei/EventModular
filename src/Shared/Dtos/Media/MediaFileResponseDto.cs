@@ -5,7 +5,6 @@ public class MediaFileResponseDto
 {
     public Guid Id { get; set; }
     public string FileName { get; set; } = string.Empty;
-    public string ContentType { get; set; } = string.Empty;
     public long FileSize { get; set; }
     public string StoragePath { get; set; } = string.Empty;
     public string? ThumbnailPath { get; set; }
@@ -19,7 +18,6 @@ public class MediaFileResponseDto
     public bool IsPublic { get; set; }
 
     public List<MediaFileLocalizationDto> Localizations { get; set; } = new();
-    public List<MediaUsageRequestDto> Usages { get; set; } = new();
 }
 
 public class PostMediaResponseDto : MediaFileResponseDto

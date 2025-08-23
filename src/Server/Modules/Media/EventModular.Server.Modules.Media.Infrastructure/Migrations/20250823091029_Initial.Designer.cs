@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EventModular.Server.Modules.Media.Infrastructure.Migrations
 {
     [DbContext(typeof(MediaDbContext))]
-    [Migration("20250822183735_Initial")]
+    [Migration("20250823091029_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -30,10 +30,6 @@ namespace EventModular.Server.Modules.Media.Infrastructure.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ContentType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("CreatedById")
                         .HasColumnType("uniqueidentifier");
@@ -102,9 +98,6 @@ namespace EventModular.Server.Modules.Media.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("CommentMediaId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid?>("CreatedById")
                         .HasColumnType("uniqueidentifier");
 
@@ -136,53 +129,9 @@ namespace EventModular.Server.Modules.Media.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CommentMediaId");
-
                     b.HasIndex("MediaFileId");
 
                     b.ToTable("MediaFileLocalization", "Localization");
-
-                    b.UseTptMappingStrategy();
-                });
-
-            modelBuilder.Entity("EventModular.Server.Modules.Media.Domain.Entities.MediaUsage", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("CreatedById")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTimeOffset>("CreationDate")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<bool>("IsArchived")
-                        .HasColumnType("bit");
-
-                    b.Property<Guid?>("LastModificationById")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("MediaFileId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTimeOffset?>("ModificationDate")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<int>("OwnerType")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("OwnerTypeId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("UsageType")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MediaFileId");
-
-                    b.ToTable("MediaUsage", "media");
                 });
 
             modelBuilder.Entity("EventModular.Server.Modules.Media.Domain.Entities.CommentMedia", b =>
@@ -221,75 +170,10 @@ namespace EventModular.Server.Modules.Media.Infrastructure.Migrations
                     b.ToTable("PostMedia", "Media");
                 });
 
-            modelBuilder.Entity("EventModular.Server.Modules.Media.Domain.Entities.EventMediaLocalization", b =>
-                {
-                    b.HasBaseType("EventModular.Server.Modules.Media.Domain.Entities.MediaFileLocalization");
-
-                    b.Property<string>("Alt")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Caption")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("EventMediaId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ShortDescription")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasIndex("EventMediaId");
-
-                    b.ToTable("EventMediaLocalization", "Localization");
-                });
-
-            modelBuilder.Entity("EventModular.Server.Modules.Media.Domain.Entities.PostMediaLocalization", b =>
-                {
-                    b.HasBaseType("EventModular.Server.Modules.Media.Domain.Entities.MediaFileLocalization");
-
-                    b.Property<string>("Alt")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("PostMediaId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ShortDescription")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasIndex("PostMediaId");
-
-                    b.ToTable("PostMediaLocalization", "Localization");
-                });
-
             modelBuilder.Entity("EventModular.Server.Modules.Media.Domain.Entities.MediaFileLocalization", b =>
                 {
-                    b.HasOne("EventModular.Server.Modules.Media.Domain.Entities.CommentMedia", null)
+                    b.HasOne("EventModular.Server.Modules.Media.Domain.Entities.MediaFile", "MediaFile")
                         .WithMany("Localizations")
-                        .HasForeignKey("CommentMediaId");
-
-                    b.HasOne("EventModular.Server.Modules.Media.Domain.Entities.MediaFile", "MediaFile")
-                        .WithMany()
-                        .HasForeignKey("MediaFileId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("MediaFile");
-                });
-
-            modelBuilder.Entity("EventModular.Server.Modules.Media.Domain.Entities.MediaUsage", b =>
-                {
-                    b.HasOne("EventModular.Server.Modules.Media.Domain.Entities.MediaFile", "MediaFile")
-                        .WithMany("Usages")
                         .HasForeignKey("MediaFileId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -324,56 +208,7 @@ namespace EventModular.Server.Modules.Media.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("EventModular.Server.Modules.Media.Domain.Entities.EventMediaLocalization", b =>
-                {
-                    b.HasOne("EventModular.Server.Modules.Media.Domain.Entities.EventMedia", "EventMedia")
-                        .WithMany("Localizations")
-                        .HasForeignKey("EventMediaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("EventModular.Server.Modules.Media.Domain.Entities.MediaFileLocalization", null)
-                        .WithOne()
-                        .HasForeignKey("EventModular.Server.Modules.Media.Domain.Entities.EventMediaLocalization", "Id")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("EventMedia");
-                });
-
-            modelBuilder.Entity("EventModular.Server.Modules.Media.Domain.Entities.PostMediaLocalization", b =>
-                {
-                    b.HasOne("EventModular.Server.Modules.Media.Domain.Entities.MediaFileLocalization", null)
-                        .WithOne()
-                        .HasForeignKey("EventModular.Server.Modules.Media.Domain.Entities.PostMediaLocalization", "Id")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("EventModular.Server.Modules.Media.Domain.Entities.PostMedia", "PostMedia")
-                        .WithMany("Localizations")
-                        .HasForeignKey("PostMediaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("PostMedia");
-                });
-
             modelBuilder.Entity("EventModular.Server.Modules.Media.Domain.Entities.MediaFile", b =>
-                {
-                    b.Navigation("Usages");
-                });
-
-            modelBuilder.Entity("EventModular.Server.Modules.Media.Domain.Entities.CommentMedia", b =>
-                {
-                    b.Navigation("Localizations");
-                });
-
-            modelBuilder.Entity("EventModular.Server.Modules.Media.Domain.Entities.EventMedia", b =>
-                {
-                    b.Navigation("Localizations");
-                });
-
-            modelBuilder.Entity("EventModular.Server.Modules.Media.Domain.Entities.PostMedia", b =>
                 {
                     b.Navigation("Localizations");
                 });

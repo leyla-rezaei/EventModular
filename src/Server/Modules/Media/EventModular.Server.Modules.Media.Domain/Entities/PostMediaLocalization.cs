@@ -3,7 +3,7 @@
 namespace EventModular.Server.Modules.Media.Domain.Entities;
 
 [Table(nameof(PostMediaLocalization), Schema = nameof(SchemaConsts.Localization))]
-public class PostMediaLocalization : MediaFileLocalization
+public class PostMediaLocalization 
 {
     public string Title { get; set; } = string.Empty;
     public string Alt { get; set; } = string.Empty;

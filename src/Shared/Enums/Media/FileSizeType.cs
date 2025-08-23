@@ -5,5 +5,9 @@ public enum FileSizeType
     Thumbnail,
     Small,
     Medium,
-    Large
+    Large,
+    Banner,
+    Recording,
+    Gallery,
+    Attachment
 }

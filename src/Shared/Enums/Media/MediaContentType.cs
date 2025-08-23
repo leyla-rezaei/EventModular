@@ -10,5 +10,8 @@ public enum MediaContentType
     Banner,
     Logo,
     Comment,
-    Menu
+    Menu,
+    Recording,
+    Gallery,
+    Attachment
 }

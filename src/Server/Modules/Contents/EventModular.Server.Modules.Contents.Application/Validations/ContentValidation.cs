@@ -66,8 +66,6 @@ public class PostContentLocalizationValidation : AbstractValidator<PostContentLo
 {
     public PostContentLocalizationValidation()
     {
-        Include(new ContentLocalizationValidation());
-
         RuleFor(x => x.Excerpt)
             .MaximumLength(500).When(x => !string.IsNullOrWhiteSpace(x.Excerpt));
     }

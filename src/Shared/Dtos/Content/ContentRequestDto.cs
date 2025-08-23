@@ -22,7 +22,7 @@ public class PostContentRequestDto : ContentRequestDto
     public new List<PostContentLocalizationDto>? Localizations { get; set; }
 }
 
-public class PostContentLocalizationDto : ContentLocalizationDto
+public class PostContentLocalizationDto 
 {
     public string? Excerpt { get; set; }
 }

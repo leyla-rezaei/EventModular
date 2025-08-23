@@ -5,12 +5,15 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Commands\**" />
+    <EmbeddedResource Remove="Commands\**" />
+    <None Remove="Commands\**" />
+  </ItemGroup>
     <ItemGroup>
         <PackageReference Include="FluentValidation" />
         <PackageReference Include="MediatR" />
-    </ItemGroup>
-    <ItemGroup>
-      <Folder Include="Commands\" />
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\..\..\..\Shared\EventModular.Shared.csproj" />
