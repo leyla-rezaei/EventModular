@@ -50,7 +50,7 @@ public class ContentLocalizationValidation : AbstractValidator<ContentLocalizati
 {
     public ContentLocalizationValidation()
     {
-        RuleFor(x => x.Key)
+        RuleFor(x => x.key)
             .NotEmpty();
 
         RuleFor(x => x.Title)
