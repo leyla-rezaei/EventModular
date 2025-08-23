@@ -22,7 +22,7 @@ namespace EventModular.Server.Modules.Contents.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("EventModular.Server.Modules.Contents.Domain.Entities.CourseLessonContent", b =>
+            modelBuilder.Entity("EventModular.Server.Modules.Contents.Domain.Entities.Content", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -33,9 +33,6 @@ namespace EventModular.Server.Modules.Contents.Infrastructure.Migrations
 
                     b.Property<int>("ContentType")
                         .HasColumnType("int");
-
-                    b.Property<Guid>("CourseLessonId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("CreatedById")
                         .HasColumnType("uniqueidentifier");
@@ -57,58 +54,23 @@ namespace EventModular.Server.Modules.Contents.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CourseLessonContent", "Content");
+                    b.ToTable("Content", "Content");
+
+                    b.UseTptMappingStrategy();
                 });
 
-            modelBuilder.Entity("EventModular.Server.Modules.Contents.Domain.Entities.EventContent", b =>
+            modelBuilder.Entity("EventModular.Server.Modules.Contents.Domain.Entities.ContentLocalization", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("ContentAllowingStatus")
-                        .HasColumnType("int");
+                    b.Property<string>("Body")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ContentType")
-                        .HasColumnType("int");
-
-                    b.Property<Guid?>("CreatedById")
+                    b.Property<Guid>("ContentId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTimeOffset>("CreationDate")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<Guid>("EventId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("IsArchived")
-                        .HasColumnType("bit");
-
-                    b.Property<Guid?>("LastModificationById")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTimeOffset?>("ModificationDate")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<int>("Order")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("EventContent", "Content");
-                });
-
-            modelBuilder.Entity("EventModular.Server.Modules.Contents.Domain.Entities.PostContent", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("ContentAllowingStatus")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ContentType")
-                        .HasColumnType("int");
 
                     b.Property<Guid?>("CreatedById")
                         .HasColumnType("uniqueidentifier");
@@ -119,21 +81,25 @@ namespace EventModular.Server.Modules.Contents.Infrastructure.Migrations
                     b.Property<bool>("IsArchived")
                         .HasColumnType("bit");
 
+                    b.Property<string>("Key")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<Guid?>("LastModificationById")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTimeOffset?>("ModificationDate")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<int>("Order")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("PostId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("PostContent", "Content");
+                    b.HasIndex("ContentId");
+
+                    b.ToTable("ContentLocalization", "Localization");
                 });
 
             modelBuilder.Entity("EventModular.Server.Modules.Contents.Domain.Entities.PostContentLocalization", b =>
@@ -175,6 +141,47 @@ namespace EventModular.Server.Modules.Contents.Infrastructure.Migrations
                     b.ToTable("PostContentLocalization", "Localization");
                 });
 
+            modelBuilder.Entity("EventModular.Server.Modules.Contents.Domain.Entities.CourseLessonContent", b =>
+                {
+                    b.HasBaseType("EventModular.Server.Modules.Contents.Domain.Entities.Content");
+
+                    b.Property<Guid>("CourseLessonId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.ToTable("CourseLessonContent", "Content");
+                });
+
+            modelBuilder.Entity("EventModular.Server.Modules.Contents.Domain.Entities.EventContent", b =>
+                {
+                    b.HasBaseType("EventModular.Server.Modules.Contents.Domain.Entities.Content");
+
+                    b.Property<Guid>("EventId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.ToTable("EventContent", "Content");
+                });
+
+            modelBuilder.Entity("EventModular.Server.Modules.Contents.Domain.Entities.PostContent", b =>
+                {
+                    b.HasBaseType("EventModular.Server.Modules.Contents.Domain.Entities.Content");
+
+                    b.Property<Guid>("PostId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.ToTable("PostContent", "Content");
+                });
+
+            modelBuilder.Entity("EventModular.Server.Modules.Contents.Domain.Entities.ContentLocalization", b =>
+                {
+                    b.HasOne("EventModular.Server.Modules.Contents.Domain.Entities.Content", "Content")
+                        .WithMany("Localizations")
+                        .HasForeignKey("ContentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Content");
+                });
+
             modelBuilder.Entity("EventModular.Server.Modules.Contents.Domain.Entities.PostContentLocalization", b =>
                 {
                     b.HasOne("EventModular.Server.Modules.Contents.Domain.Entities.PostContent", "Content")
@@ -184,6 +191,38 @@ namespace EventModular.Server.Modules.Contents.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Content");
+                });
+
+            modelBuilder.Entity("EventModular.Server.Modules.Contents.Domain.Entities.CourseLessonContent", b =>
+                {
+                    b.HasOne("EventModular.Server.Modules.Contents.Domain.Entities.Content", null)
+                        .WithOne()
+                        .HasForeignKey("EventModular.Server.Modules.Contents.Domain.Entities.CourseLessonContent", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("EventModular.Server.Modules.Contents.Domain.Entities.EventContent", b =>
+                {
+                    b.HasOne("EventModular.Server.Modules.Contents.Domain.Entities.Content", null)
+                        .WithOne()
+                        .HasForeignKey("EventModular.Server.Modules.Contents.Domain.Entities.EventContent", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("EventModular.Server.Modules.Contents.Domain.Entities.PostContent", b =>
+                {
+                    b.HasOne("EventModular.Server.Modules.Contents.Domain.Entities.Content", null)
+                        .WithOne()
+                        .HasForeignKey("EventModular.Server.Modules.Contents.Domain.Entities.PostContent", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("EventModular.Server.Modules.Contents.Domain.Entities.Content", b =>
+                {
+                    b.Navigation("Localizations");
                 });
 #pragma warning restore 612, 618
         }
