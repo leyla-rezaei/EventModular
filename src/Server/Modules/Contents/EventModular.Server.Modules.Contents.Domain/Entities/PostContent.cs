@@ -12,4 +12,6 @@ public class PostContent : Content
 
     public Guid PostId { get; set; }
 
+    public  ICollection<PostContentLocalization> Localizations  { get; set; } = new List<PostContentLocalization>();
+
 }

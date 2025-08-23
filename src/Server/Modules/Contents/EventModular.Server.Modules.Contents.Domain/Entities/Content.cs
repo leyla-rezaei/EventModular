@@ -10,4 +10,6 @@ public abstract class Content : BaseEntity
     public ContentType ContentType { get; set; } 
     public int Order { get; set; }
     public ContentAllowingStatus ContentAllowingStatus { get; set; }
+    public ICollection<ContentLocalization> Localizations { get; set; } = new List<ContentLocalization>();
+
 }
