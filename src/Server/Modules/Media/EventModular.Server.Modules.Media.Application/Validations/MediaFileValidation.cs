@@ -11,9 +11,6 @@ public class MediaFileValidation : AbstractValidator<MediaFileRequestDto>
             .NotEmpty().WithMessage("file name is required")
             .MaximumLength(255);
 
-        RuleFor(x => x.ContentType)
-            .NotEmpty();
-
         RuleFor(x => x.FileSize)
             .GreaterThan(0).WithMessage("file size must be greater than zero");
 
@@ -22,9 +19,6 @@ public class MediaFileValidation : AbstractValidator<MediaFileRequestDto>
 
         RuleForEach(x => x.Localizations)
             .SetValidator(new MediaFileLocalizationValidation());
-
-        RuleForEach(x => x.Usages)
-            .SetValidator(new MediaUsageValidation());
     }
 }
 
@@ -38,21 +32,6 @@ public class MediaFileLocalizationValidation : AbstractValidator<MediaFileLocali
         RuleFor(x => x.DisplayName)
             .NotEmpty()
             .MaximumLength(255);
-    }
-}
-
-public class MediaUsageValidation : AbstractValidator<MediaUsageRequestDto>
-{
-    public MediaUsageValidation()
-    {
-        RuleFor(x => x.OwnerType)
-            .IsInEnum().WithMessage("invalid owner type");
-
-        RuleFor(x => x.OwnerTypeId)
-            .NotEmpty().WithMessage("owner typeId is required");
-
-        RuleFor(x => x.UsageType)
-            .IsInEnum().WithMessage("invalid usage type");
     }
 }
 
@@ -75,8 +54,7 @@ public class PostMediaLocalizationValidation : AbstractValidator<PostMediaLocali
 {
     public PostMediaLocalizationValidation()
     {
-        Include(new MediaFileLocalizationValidation());
-
+       
         RuleFor(x => x.Title)
             .NotEmpty();
 
@@ -115,8 +93,6 @@ public class EventMediaLocalizationValidation : AbstractValidator<EventMediaLoca
 {
     public EventMediaLocalizationValidation()
     {
-        Include(new MediaFileLocalizationValidation());
-
         RuleFor(x => x.Title)
             .NotEmpty();
 

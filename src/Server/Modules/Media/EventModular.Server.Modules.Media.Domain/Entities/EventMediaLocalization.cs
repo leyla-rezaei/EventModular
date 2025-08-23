@@ -2,7 +2,7 @@
 
 namespace EventModular.Server.Modules.Media.Domain.Entities;
 [Table(nameof(EventMediaLocalization), Schema = nameof(SchemaConsts.Localization))]
-public class EventMediaLocalization : MediaFileLocalization
+public class EventMediaLocalization 
 {
     public string Title { get; set; } = string.Empty;
     public string Alt { get; set; } = string.Empty;
