@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Linq;
+using System.Text;
 using EventModular.Server.Api.Models.Identity;
 using EventModular.Shared.Dtos.Identity;
 using Fido2NetLib;
@@ -13,7 +14,6 @@ public partial class IdentityController
     [AutoInject] private IDistributedCache cache = default!;
     [AutoInject] protected JsonSerializerOptions jsonSerializerOptions = default!;
 
-
     [HttpPost]
     public async Task<AssertionOptions> GetWebAuthnAssertionOptions(WebAuthnAssertionOptionsRequestDto request, CancellationToken cancellationToken)
     {
@@ -21,28 +21,28 @@ public partial class IdentityController
 
         if (request.UserIds is not null)
         {
-            var existingCredentials = await DbContext.WebAuthnCredential.Where(c => request.UserIds.Contains(c.UserId))
-                                                                        .OrderByDescending(c => c.RegDate)
-                                                                        .Select(c => new { c.Id, c.Transports })
-                                                                        .ToArrayAsync(cancellationToken);
-            existingKeys.AddRange(existingCredentials.Select(c => new PublicKeyCredentialDescriptor(PublicKeyCredentialType.PublicKey, c.Id, c.Transports)));
+            var existingCredentials = await DbContext.WebAuthnCredential
+                .Where(c => request.UserIds.Contains(c.UserId))
+                .OrderByDescending(c => c.RegDate)
+                .Select(c => new { c.Id, c.Transports })
+                .ToArrayAsync(cancellationToken);
+
+            existingKeys.AddRange(existingCredentials.Select(c =>
+                new PublicKeyCredentialDescriptor(PublicKeyCredentialType.PublicKey, c.Id, c.Transports)));
         }
 
-        var extensions = new AuthenticationExtensionsClientInputs
-        {
-            Extensions = true,
-            UserVerificationMethod = true,
-        };
 
         var options = fido2.GetAssertionOptions(new GetAssertionOptionsParams
         {
-            //Extensions = extensions,
             AllowedCredentials = existingKeys,
             UserVerification = UserVerificationRequirement.Required,
         });
 
         var key = new string([.. options.Challenge.Select(b => (char)b)]);
-        await cache.SetAsync(key, Encoding.UTF8.GetBytes(options.ToJson()), new() { SlidingExpiration = TimeSpan.FromMinutes(3) }, cancellationToken);
+        await cache.SetAsync(key, Encoding.UTF8.GetBytes(options.ToJson()), new()
+        {
+            SlidingExpiration = TimeSpan.FromMinutes(3)
+        }, cancellationToken);
 
         return options;
     }
@@ -51,7 +51,6 @@ public partial class IdentityController
     public async Task<VerifyAssertionResult> VerifyWebAuthAssertion(AuthenticatorAssertionRawResponse clientResponse, CancellationToken cancellationToken)
     {
         var (verifyResult, _) = await Verify(clientResponse, cancellationToken);
-
         return verifyResult;
     }
 
@@ -60,7 +59,8 @@ public partial class IdentityController
     {
         var (verifyResult, credential) = await Verify(request.ClientResponse, cancellationToken);
 
-        var user = await userManager.FindByIdAsync(credential.UserId.ToString())
+        var userId = credential.UserId.ToString();
+        var user = await userManager.FindByIdAsync(userId)
                     ?? throw new ResourceNotFoundException();
 
         var (otp, _) = await GenerateAutomaticSignInLink(user, null, "WebAuthn");
@@ -80,19 +80,21 @@ public partial class IdentityController
     {
         var (verifyResult, credential) = await Verify(clientResponse, cancellationToken);
 
-        var user = await userManager.FindByIdAsync(credential.UserId.ToString())
+        // ✅ تبدیل UserId از byte[] → Guid → string
+        var userId = credential.UserId.ToString();
+        var user = await userManager.FindByIdAsync(userId)
                     ?? throw new ResourceNotFoundException();
 
         var (otp, _) = await GenerateAutomaticSignInLink(user, null, "WebAuthn");
-
         await SendTwoFactorToken(new() { Otp = otp }, user, cancellationToken);
     }
 
-
     private async Task<(VerifyAssertionResult, WebAuthnCredential)> Verify(AuthenticatorAssertionRawResponse clientResponse, CancellationToken cancellationToken)
     {
-        var response = JsonSerializer.Deserialize(clientResponse.Response.ClientDataJson, jsonSerializerOptions.GetTypeInfo<AuthenticatorResponse>())
-                        ?? throw new InvalidOperationException("Invalid client data.");
+        var response = JsonSerializer.Deserialize(
+                           clientResponse.Response.ClientDataJson,
+                           jsonSerializerOptions.GetTypeInfo<AuthenticatorResponse>())
+                       ?? throw new InvalidOperationException("Invalid client data.");
 
         var key = new string([.. response.Challenge.Select(b => (char)b)]);
         var cachedBytes = await cache.GetAsync(key, cancellationToken)
@@ -101,11 +103,12 @@ public partial class IdentityController
         var jsonOptions = Encoding.UTF8.GetString(cachedBytes);
         var options = AssertionOptions.FromJson(jsonOptions);
 
-        // since the TFA needs this option we won't remove it from cache manually and just wait for it to expire.
-        // await cache.RemoveAsync(key, cancellationToken);
+        // ✅ clientResponse.Id (string) → byte[]
+        var credentialId = Convert.FromBase64String(clientResponse.Id);
 
-        var credential = (await DbContext.WebAuthnCredential.FirstOrDefaultAsync(c => c.Id == clientResponse.Id, cancellationToken))
-                            ?? throw new ResourceNotFoundException();
+        var credential = (await DbContext.WebAuthnCredential
+                             .FirstOrDefaultAsync(c => c.Id == credentialId, cancellationToken))
+                         ?? throw new ResourceNotFoundException();
 
         var verifyResult = await fido2.MakeAssertionAsync(new MakeAssertionParams
         {
@@ -121,7 +124,12 @@ public partial class IdentityController
 
     private async Task<bool> IsUserHandleOwnerOfCredentialId(IsUserHandleOwnerOfCredentialIdParams args, CancellationToken cancellationToken)
     {
-        var storedCreds = await DbContext.WebAuthnCredential.Where(c => c.UserHandle == args.UserHandle).ToListAsync(cancellationToken);
-        return storedCreds.Exists(c => new PublicKeyCredentialDescriptor(PublicKeyCredentialType.PublicKey, c.Id, c.Transports).Id.SequenceEqual(args.CredentialId));
+        var storedCreds = await DbContext.WebAuthnCredential
+            .Where(c => c.UserHandle == args.UserHandle)
+            .ToListAsync(cancellationToken);
+
+        return storedCreds.Exists(c =>
+            new PublicKeyCredentialDescriptor(PublicKeyCredentialType.PublicKey, c.Id, c.Transports)
+                .Id.SequenceEqual(args.CredentialId));
     }
 }
