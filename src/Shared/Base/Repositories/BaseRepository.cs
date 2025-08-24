@@ -102,4 +102,25 @@ public class BaseRepository<TContext, TEntity> : IBaseRepository<TEntity>
 
         return await query.ToListAsync(cancellationToken);
     }
+
+    public async Task<int> CountAsync(ISpecification<TEntity> specification, CancellationToken cancellationToken)
+    {
+        var query = SpecificationEvaluator<TEntity>.GetQuery(_dbContext.Set<TEntity>().AsQueryable(), specification)
+                                                   .Where(e => !e.IsArchived);
+        return await query.CountAsync(cancellationToken);
+    }
+
+    public async Task<TEntity?> FirstOrDefaultAsync(ISpecification<TEntity> specification, CancellationToken cancellationToken)
+    {
+        var query = SpecificationEvaluator<TEntity>.GetQuery(_dbContext.Set<TEntity>().AsQueryable(), specification)
+                                                   .Where(e => !e.IsArchived);
+        return await query.FirstOrDefaultAsync(cancellationToken);
+    }
+
+    public async Task<bool> AnyAsync(ISpecification<TEntity> specification, CancellationToken cancellationToken)
+    {
+        var query = SpecificationEvaluator<TEntity>.GetQuery(_dbContext.Set<TEntity>().AsQueryable(), specification)
+                                                   .Where(e => !e.IsArchived);
+        return await query.AnyAsync(cancellationToken);
+    }
 }

@@ -17,6 +17,25 @@ public class DiscountDbContext : ModuleDbContext
         var entitiesAssembly = typeof(Campaign).Assembly;
 
         modelBuilder.RegisterAllEntities<IBaseEntity>(entitiesAssembly);
+    }
 
+    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+    {
+        foreach (var entry in ChangeTracker.Entries<IBaseEntity>())
+        {
+            switch (entry.State)
+            {
+                case EntityState.Added:
+                    entry.Entity.CreationDate = DateTime.UtcNow;
+                    break;
+                case EntityState.Modified:
+                    entry.Entity.ModificationDate = DateTime.UtcNow;
+                    break;
+                case EntityState.Deleted:
+                    entry.Entity.IsArchived = true;
+                    break;
+            }
+        }
+        return base.SaveChangesAsync(cancellationToken);
     }
 }
