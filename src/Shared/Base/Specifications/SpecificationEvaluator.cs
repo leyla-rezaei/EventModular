@@ -1,8 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
 namespace EventModular.Shared.Base.Specifications;
-public static class SpecificationEvaluator<TEntity>
-    where TEntity : class
+public static class SpecificationEvaluator<TEntity> where TEntity : class
 {
     public static IQueryable<TEntity> GetQuery(
         IQueryable<TEntity> inputQuery,

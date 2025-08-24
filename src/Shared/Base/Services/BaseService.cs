@@ -117,4 +117,19 @@ public class BaseService<TEntity, TInput, TOutput> : IBaseService<TEntity, TInpu
         return ListResponse<TOutput>.Success(result);
     }
 
+    public virtual async Task<SingleResponse<TOutput>> GetSingleAsync(ISpecification<TEntity> specification, CancellationToken cancellationToken)
+    {
+        var entity = await _repository.FirstOrDefaultAsync(specification, cancellationToken);
+        return entity == null ? ResponseStatus.NotFound : SingleResponse<TOutput>.Success(entity.Adapt<TOutput>());
+    }
+
+    public virtual async Task<int> CountAsync(ISpecification<TEntity> specification, CancellationToken cancellationToken)
+    {
+        return await _repository.CountAsync(specification, cancellationToken);
+    }
+
+    public virtual async Task<bool> ExistsAsync(ISpecification<TEntity> specification, CancellationToken cancellationToken)
+    {
+        return await _repository.AnyAsync(specification, cancellationToken);
+    }
 }

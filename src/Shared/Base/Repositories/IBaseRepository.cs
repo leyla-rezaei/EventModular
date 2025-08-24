@@ -26,4 +26,7 @@ public interface IBaseRepository<TEntity>
     // Specification Pattern
     IQueryable<TEntity> Find(ISpecification<TEntity> specification);
     Task<List<TEntity>> FindAsync(ISpecification<TEntity> specification, CancellationToken cancellationToken);
+    Task<int> CountAsync(ISpecification<TEntity> specification, CancellationToken cancellationToken);
+    Task<TEntity?> FirstOrDefaultAsync(ISpecification<TEntity> specification, CancellationToken cancellationToken);
+    Task<bool> AnyAsync(ISpecification<TEntity> specification, CancellationToken cancellationToken);
 }

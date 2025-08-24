@@ -1,165 +1,27 @@
-﻿using EventModular.Server.Modules.AffiliateMarketing.Infrastructure.Persistence;
-using EventModular.Server.Modules.Categories.Infrastructure.Persistence;
-using EventModular.Server.Modules.Comments.Application.Mappers;
-using EventModular.Server.Modules.Comments.Infrastructure.Persistence;
-using EventModular.Server.Modules.Contents.Infrastructure.Persistence;
-using EventModular.Server.Modules.Courses.Infrastructure.Persistence;
-using EventModular.Server.Modules.Discounts.Infrastructure.Persistence;
-using EventModular.Server.Modules.Events.Infrastructure.Persistence;
-using EventModular.Server.Modules.Live.Infrastructure.Persistence;
-using EventModular.Server.Modules.Media.Infrastructure.Persistence;
-using EventModular.Server.Modules.Notifications.Infrastructure.Persistence;
-using EventModular.Server.Modules.Orders.Infrastructure.Persistence;
-using EventModular.Server.Modules.Organizer.Infrastructure.Persistence;
-using EventModular.Server.Modules.Payments.Infrastructure.Persistence;
-using EventModular.Server.Modules.Posts.Infrastructure.Persistence;
-using EventModular.Server.Modules.Rates.Infrastructure.Persistence;
-using EventModular.Server.Modules.Subdomains.Infrastructure.Persistence;
-using EventModular.Server.Modules.Tags.Infrastructure.Persistence;
-using EventModular.Server.Modules.TeamManagement.Infrastructure.Persistence;
-using EventModular.Server.Modules.Tickets.Infrastructure.Persistence;
-using Microsoft.Data.SqlClient;
-
-namespace EventModular.Server.Api.Extensions;
+﻿using EventModular.Server.Api;
+using EventModular.Shared.Contracts;
 
 public static class ModuleRegistration
 {
     public static void RegisterModules(this IServiceCollection services, IConfiguration configuration)
     {
-        // Register Module
-        var baseConnection = configuration.GetConnectionString("DefaultConnection");
+        // find all IModuleInstaller classes in all assemblies
+        var installers = AppDomain.CurrentDomain.GetAssemblies()
+            .SelectMany(a => a.GetTypes())
+            .Where(t => typeof(IModuleInstaller).IsAssignableFrom(t) && !t.IsAbstract && !t.IsInterface)
+            .Select(Activator.CreateInstance)
+            .Cast<IModuleInstaller>();
 
-        services.AddDbContext<OrganizerDbContext>(options =>
+        // install all modules
+        foreach (var installer in installers)
         {
-            var connectionString = ReplaceCatalog(baseConnection, "OrganizerDb");
-            options.UseSqlServer(connectionString);
-        });
+            installer.Install(services, configuration);
+        }
 
-        services.AddDbContext<EventDbContext>(options =>
-        {
-            var connectionString = ReplaceCatalog(baseConnection, "EventDb");
-            options.UseSqlServer(connectionString);
-        });
+        // auto mapper
+        services.AddAutoMapper(typeof(Program).Assembly);
 
-        services.AddDbContext<CategoryDbContext>(options =>
-        {
-            var connectionString = ReplaceCatalog(baseConnection, "CategoryDb");
-            options.UseSqlServer(connectionString);
-        });
-
-        services.AddDbContext<CommentDbContext>(options =>
-        {
-            var connectionString = ReplaceCatalog(baseConnection, "CommentDb");
-            options.UseSqlServer(connectionString);
-        });
-
-        services.AddDbContext<SubdomainDbContext>(options =>
-        {
-            var connectionString = ReplaceCatalog(baseConnection, "SubdomainDb");
-            options.UseSqlServer(connectionString);
-        });
-
-        services.AddDbContext<PostDbContext>(options =>
-        {
-            var connectionString = ReplaceCatalog(baseConnection, "PostDb");
-            options.UseSqlServer(connectionString);
-        });
-
-        services.AddDbContext<AffiliateDbContext>(options =>
-        {
-            var connectionString = ReplaceCatalog(baseConnection, "AffiliateDb");
-            options.UseSqlServer(connectionString);
-        });
-
-        services.AddDbContext<DiscountDbContext>(options =>
-        {
-            var connectionString = ReplaceCatalog(baseConnection, "DiscountDb");
-            options.UseSqlServer(connectionString);
-        });
-
-        services.AddDbContext<CourseDbContext>(options =>
-        {
-            var connectionString = ReplaceCatalog(baseConnection, "CourseDb");
-            options.UseSqlServer(connectionString);
-        });
-
-        services.AddDbContext<TeamManagementDbContext>(options =>
-        {
-            var connectionString = ReplaceCatalog(baseConnection, "TeamManagementDb");
-            options.UseSqlServer(connectionString);
-        });
-
-        services.AddDbContext<TicketDbContext>(options =>
-        {
-            var connectionString = ReplaceCatalog(baseConnection, "TicketDb");
-            options.UseSqlServer(connectionString);
-        });
-
-
-        services.AddDbContext<NotificationDbContext>(options =>
-        {
-            var connectionString = ReplaceCatalog(baseConnection, "NotificationDb");
-            options.UseSqlServer(connectionString);
-        });
-
-
-        services.AddDbContext<OrderDbContext>(options =>
-        {
-            var connectionString = ReplaceCatalog(baseConnection, "OrderDb");
-            options.UseSqlServer(connectionString);
-        });
-
-        services.AddDbContext<PaymentDbContext>(options =>
-        {
-            var connectionString = ReplaceCatalog(baseConnection, "PaymentDb");
-            options.UseSqlServer(connectionString);
-        });
-
-        services.AddDbContext<LiveDbContext>(options =>
-        {
-            var connectionString = ReplaceCatalog(baseConnection, "LiveDb");
-            options.UseSqlServer(connectionString);
-        });
-
-        services.AddDbContext<MediaDbContext>(options =>
-        {
-            var connectionString = ReplaceCatalog(baseConnection, "MediaDb");
-            options.UseSqlServer(connectionString);
-        });
-
-        services.AddDbContext<ContentDbContext>(options =>
-        {
-            var connectionString = ReplaceCatalog(baseConnection, "ContentDb");
-            options.UseSqlServer(connectionString);
-        });
-
-        services.AddDbContext<TagDbContext>(options =>
-        {
-            var connectionString = ReplaceCatalog(baseConnection, "TagDb");
-            options.UseSqlServer(connectionString);
-        });
-
-        services.AddDbContext<RateDbContext>(options =>
-        {
-            var connectionString = ReplaceCatalog(baseConnection, "RateDb");
-            options.UseSqlServer(connectionString);
-        });
-
-
-        // RegisterAutoMappers
-        services.AddAutoMapper(typeof(CommentProfile).Assembly);
-
-
-        // Register controllers
-
-    }
-    private static string ReplaceCatalog(string connectionString, string dbName)
-    {
-        var builder = new SqlConnectionStringBuilder(connectionString)
-        {
-            InitialCatalog = dbName
-        };
-        return builder.ToString();
+        // controllers
+        services.AddControllers();
     }
 }
-

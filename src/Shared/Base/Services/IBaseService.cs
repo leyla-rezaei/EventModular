@@ -30,4 +30,8 @@ public interface IBaseService<TEntity, TInput, TOutput>
     // Specification Pattern
     Task<ListResponse<TOutput>> FindAsync(ISpecification<TEntity> specification, CancellationToken cancellationToken);
     Task<ListResponse<TOutput>> Find(ISpecification<TEntity> specification, CancellationToken cancellationToken);
+
+    Task<SingleResponse<TOutput>> GetSingleAsync(ISpecification<TEntity> specification, CancellationToken cancellationToken);
+    Task<int> CountAsync(ISpecification<TEntity> specification, CancellationToken cancellationToken);
+    Task<bool> ExistsAsync(ISpecification<TEntity> specification, CancellationToken cancellationToken);
 }

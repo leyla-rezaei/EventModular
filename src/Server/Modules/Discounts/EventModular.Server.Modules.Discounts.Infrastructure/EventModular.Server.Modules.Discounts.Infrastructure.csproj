@@ -6,6 +6,7 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
     <ItemGroup>
+        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
             <PrivateAssets>all</PrivateAssets>
@@ -16,10 +17,12 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
+        <PackageReference Include="MediatR" />
     </ItemGroup>
 
     <ItemGroup>
     <ProjectReference Include="..\..\..\..\Shared\EventModular.Shared.csproj" />
+    <ProjectReference Include="..\EventModular.Server.Modules.Discounts.Application\EventModular.Server.Modules.Discounts.Application.csproj" />
     <ProjectReference Include="..\EventModular.Server.Modules.Discounts.Domain\EventModular.Server.Modules.Discounts.Domain.csproj" />
   </ItemGroup>
 

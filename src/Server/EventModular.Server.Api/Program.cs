@@ -1,5 +1,4 @@
-﻿using EventModular.Server.Api.Extensions;
-using EventModular.Shared.Extensions;
+﻿using EventModular.Shared.Extensions;
 
 namespace EventModular.Server.Api;
 
