@@ -10,10 +10,14 @@ namespace EventModular.Server.Modules.Discounts.InfrastrucancellationTokenure.Pe
 public class DiscountDataInitializer
 {
     public static async Task InitializeAsync(DiscountDbContext context,
-        IMediator mediator, CancellationToken cancellationToken)
+       IMediator mediator,CancellationToken cancellationToken)
     {
         context.Database.Migrate();
+        await SeedData(context, cancellationToken, mediator);
+    }
 
+    private static async Task SeedData(DiscountDbContext context, CancellationToken cancellationToken,IMediator mediator)
+    {
         var languages = await SeedLanguageAsync(context, cancellationToken);
 
         var organizerId = await mediator.Send(new GetDefaultOrganizerQuery(), cancellationToken);
