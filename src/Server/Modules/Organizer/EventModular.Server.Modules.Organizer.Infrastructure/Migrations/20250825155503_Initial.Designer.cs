@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EventModular.Server.Modules.Organizer.Infrastructure.Migrations
 {
     [DbContext(typeof(OrganizerDbContext))]
-    [Migration("20250822171453_Initial")]
+    [Migration("20250825155503_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -92,7 +92,7 @@ namespace EventModular.Server.Modules.Organizer.Infrastructure.Migrations
                     b.Property<DateTimeOffset?>("ModificationDate")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<Guid>("OrganizerProfileId")
+                    b.Property<Guid>("OrganizerId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ProfileName")
@@ -100,7 +100,7 @@ namespace EventModular.Server.Modules.Organizer.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OrganizerProfileId");
+                    b.HasIndex("OrganizerId");
 
                     b.ToTable("OrganizerProfileLocalization", "localization");
                 });
@@ -135,23 +135,38 @@ namespace EventModular.Server.Modules.Organizer.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("OrganizerId");
+
                     b.ToTable("OrganizerSupportedCurrency", "organizer");
                 });
 
             modelBuilder.Entity("EventModular.Server.Modules.Organizer.Domain.Entities.OrganizerProfileLocalization", b =>
                 {
-                    b.HasOne("EventModular.Server.Modules.Organizer.Domain.Entities.OrganizerProfile", "OrganizerProfile")
+                    b.HasOne("EventModular.Server.Modules.Organizer.Domain.Entities.OrganizerProfile", "Organizer")
                         .WithMany("Localizations")
-                        .HasForeignKey("OrganizerProfileId")
+                        .HasForeignKey("OrganizerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("OrganizerProfile");
+                    b.Navigation("Organizer");
+                });
+
+            modelBuilder.Entity("EventModular.Server.Modules.Organizer.Domain.Entities.OrganizerSupportedCurrency", b =>
+                {
+                    b.HasOne("EventModular.Server.Modules.Organizer.Domain.Entities.OrganizerProfile", "Organizer")
+                        .WithMany("SupportedCurrencies")
+                        .HasForeignKey("OrganizerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Organizer");
                 });
 
             modelBuilder.Entity("EventModular.Server.Modules.Organizer.Domain.Entities.OrganizerProfile", b =>
                 {
                     b.Navigation("Localizations");
+
+                    b.Navigation("SupportedCurrencies");
                 });
 #pragma warning restore 612, 618
         }

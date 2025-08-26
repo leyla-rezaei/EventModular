@@ -10,42 +10,47 @@ namespace EventModular.Server.Modules.Discounts.Api.Controllers;
 public class CouponController : ControllerBase
 {
     private readonly CouponService _service;
+
     public CouponController(CouponService service)
     {
         _service = service;
     }
 
-
     [HttpPost]
-    public Task<SingleResponse<CouponResponseDto>> Create([FromBody] CouponRequestDto input, CancellationToken cancellationToken)
+    public async Task<IActionResult> Create([FromBody] CouponRequestDto input, CancellationToken cancellationToken)
     {
-        return _service.Create(input, cancellationToken);
+        var result = await _service.CreateAsync(input, cancellationToken);;
+
+        return Ok(result);
     }
-     
 
     [HttpPut("{id:guid}")]
-    public Task<SingleResponse<CouponResponseDto>> Update(Guid id, [FromBody] CouponRequestDto input, CancellationToken cancellationToken)
+    public async Task<IActionResult> Update(Guid id, [FromBody] CouponRequestDto input, CancellationToken cancellationToken)
     {
-        return _service.Update(id, input, cancellationToken);
+        var result = await _service.UpdateAsync(id, input, cancellationToken);
+        return Ok(result);
     }
 
-
     [HttpDelete("{id:guid}")]
-    public Task<JustResponse> Delete(Guid id, CancellationToken cancellationToken)
+    public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)
     {
-       return _service.Delete(id, cancellationToken);
+        var result = await _service.DeleteAsync(id, cancellationToken);
+
+        return Ok(result);
     }
 
     [HttpGet("{id:guid}")]
-    public Task<SingleResponse<CouponResponseDto>> Get(Guid id, CancellationToken cancellationToken)
+    public async Task<IActionResult> Get(Guid id, CancellationToken cancellationToken)
     {
-        return  _service.Get(id, cancellationToken);
+        var result = await _service.GetAsync(id, cancellationToken);
+        return Ok(result);
     }
 
     [HttpGet]
-    public Task<ListResponse<CouponResponseDto>> GetAll(CancellationToken cancellationToken)
+    public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
     {
-        return _service.GetAll(cancellationToken); 
+        var result = await _service.GetAllAsync(cancellationToken);
+
+        return Ok(result);
     }
-      
 }

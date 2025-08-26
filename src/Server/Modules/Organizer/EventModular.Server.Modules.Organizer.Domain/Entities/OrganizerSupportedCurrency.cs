@@ -6,5 +6,6 @@ namespace EventModular.Server.Modules.Organizer.Domain.Entities;
 public class OrganizerSupportedCurrency : BaseEntity
 {
     public Guid OrganizerId { get; set; }
+    public OrganizerProfile Organizer { get; set; } 
     public string CurrencyCode { get; set; } = string.Empty;
 }

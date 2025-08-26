@@ -10,5 +10,6 @@ public class OrganizerProfile : BaseEntity
     public string? WebsiteUrl { get; set; }
     public string? Subdomain { get; set; }
     public ICollection<OrganizerProfileLocalization> Localizations { get; set; } = new List<OrganizerProfileLocalization>();
-   
-}
+    public ICollection<OrganizerSupportedCurrency>  SupportedCurrencies { get; set; } = new List<OrganizerSupportedCurrency>();
+
+} 
