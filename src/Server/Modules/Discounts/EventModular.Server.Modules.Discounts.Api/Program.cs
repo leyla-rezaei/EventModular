@@ -5,7 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add DbContext and Services specific to this module
 builder.Services.AddDbContext<DiscountDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DiscountConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
 

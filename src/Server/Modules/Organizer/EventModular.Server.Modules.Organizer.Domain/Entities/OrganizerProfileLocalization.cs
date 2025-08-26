@@ -9,6 +9,6 @@ public class OrganizerProfileLocalization : BaseLocalization
     public string Bio { get; set; } = string.Empty;
     public string? ProfileName { get; set; }
 
-    public Guid OrganizerProfileId { get; set; }
-    public OrganizerProfile OrganizerProfile { get; set; }
+    public Guid OrganizerId { get; set; } 
+    public OrganizerProfile Organizer { get; set; }
 }

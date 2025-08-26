@@ -13,29 +13,29 @@ public class CouponService
         _mediator = mediator;
     }
 
-    public Task<SingleResponse<CouponResponseDto>> Create(CouponRequestDto input, CancellationToken cancellationToken)
+    public async Task<SingleResponse<CouponResponseDto>> CreateAsync(CouponRequestDto input, CancellationToken cancellationToken)
     {
-        return _mediator.Send(new CreateCouponCommand(input), cancellationToken);
+        return await _mediator.Send(new CreateCouponCommand(input), cancellationToken);
     }  
 
-    public Task<SingleResponse<CouponResponseDto>> Update(Guid id, CouponRequestDto input, CancellationToken cancellationToken)
+    public async Task<SingleResponse<CouponResponseDto>> UpdateAsync(Guid id, CouponRequestDto input, CancellationToken cancellationToken)
     {
-       return _mediator.Send(new UpdateCouponCommand(id, input), cancellationToken);
+       return await _mediator.Send(new UpdateCouponCommand(id, input), cancellationToken);
     }
 
-    public Task<JustResponse> Delete(Guid id, CancellationToken cancellationToken)
+    public async Task<JustResponse> DeleteAsync(Guid id, CancellationToken cancellationToken)
     {
-        return _mediator.Send(new DeleteCouponCommand(id), cancellationToken);
+        return await _mediator.Send(new DeleteCouponCommand(id), cancellationToken);
 
     }
-    public Task<SingleResponse<CouponResponseDto>> Get(Guid id, CancellationToken cancellationToken)
+    public async Task<SingleResponse<CouponResponseDto>> GetAsync(Guid id, CancellationToken cancellationToken)
     {
-        return _mediator.Send(new GetCouponQuery(id), cancellationToken);
+        return await _mediator.Send(new GetCouponQuery(id), cancellationToken);
     }
 
-    public Task<ListResponse<CouponResponseDto>> GetAll(CancellationToken cancellationToken)
+    public async Task<ListResponse<CouponResponseDto>> GetAllAsync(CancellationToken cancellationToken)
     {
-        return _mediator.Send(new GetAllCouponsQuery(), cancellationToken);
+        return await _mediator.Send(new GetAllCouponsQuery(), cancellationToken);
     }
 }
 

@@ -16,9 +16,4 @@
     <ProjectReference Include="..\EventModular.Server.Modules.Organizer.Domain\EventModular.Server.Modules.Organizer.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Handler\" />
-    <Folder Include="Queries\" />
-  </ItemGroup>
-
 </Project>

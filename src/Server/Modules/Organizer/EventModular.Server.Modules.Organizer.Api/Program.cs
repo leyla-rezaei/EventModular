@@ -5,7 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // add DbContext to this module
 builder.Services.AddDbContext<OrganizerDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("OrganizerConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.Configure<OrganizerSettings>(
     builder.Configuration.GetSection("Organizer"));

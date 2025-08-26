@@ -2,6 +2,8 @@
 using EventModular.Shared.Dtos.Organizer;
 using MediatR;
 
-namespace EventModular.Server.Modules.Organizer.Application.Commands;
-public record CreateOrganizerProfileCommand(OrganizerProfileRequestDto dto)
+namespace EventModular.Server.Modules.Organizer.Application.Queries;
+public record GetOrganizerProfileByIdQuery(Guid Id)
     : IRequest<SingleResponse<OrganizerProfileResponseDto>>;
+
+

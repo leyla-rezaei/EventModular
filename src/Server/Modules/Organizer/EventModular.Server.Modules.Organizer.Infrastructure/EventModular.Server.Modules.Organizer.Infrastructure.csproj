@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Shared\EventModular.Shared.csproj" />
+    <ProjectReference Include="..\EventModular.Server.Modules.Organizer.Application\EventModular.Server.Modules.Organizer.Application.csproj" />
     <ProjectReference Include="..\EventModular.Server.Modules.Organizer.Domain\EventModular.Server.Modules.Organizer.Domain.csproj" />
   </ItemGroup>
 

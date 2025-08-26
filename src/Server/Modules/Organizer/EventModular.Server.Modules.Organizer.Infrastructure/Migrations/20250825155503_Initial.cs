@@ -39,6 +39,34 @@ namespace EventModular.Server.Modules.Organizer.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "OrganizerProfileLocalization",
+                schema: "localization",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Bio = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProfileName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OrganizerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreationDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    ModificationDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    IsArchived = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    LastModificationById = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    Key = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrganizerProfileLocalization", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OrganizerProfileLocalization_OrganizerProfile_OrganizerId",
+                        column: x => x.OrganizerId,
+                        principalSchema: "organizer",
+                        principalTable: "OrganizerProfile",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OrganizerSupportedCurrency",
                 schema: "organizer",
                 columns: table => new
@@ -55,30 +83,9 @@ namespace EventModular.Server.Modules.Organizer.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_OrganizerSupportedCurrency", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "OrganizerProfileLocalization",
-                schema: "localization",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Bio = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ProfileName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    OrganizerProfileId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CreationDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    ModificationDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    IsArchived = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    LastModificationById = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    Key = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OrganizerProfileLocalization", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_OrganizerProfileLocalization_OrganizerProfile_OrganizerProfileId",
-                        column: x => x.OrganizerProfileId,
+                        name: "FK_OrganizerSupportedCurrency_OrganizerProfile_OrganizerId",
+                        column: x => x.OrganizerId,
                         principalSchema: "organizer",
                         principalTable: "OrganizerProfile",
                         principalColumn: "Id",
@@ -86,10 +93,16 @@ namespace EventModular.Server.Modules.Organizer.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrganizerProfileLocalization_OrganizerProfileId",
+                name: "IX_OrganizerProfileLocalization_OrganizerId",
                 schema: "localization",
                 table: "OrganizerProfileLocalization",
-                column: "OrganizerProfileId");
+                column: "OrganizerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrganizerSupportedCurrency_OrganizerId",
+                schema: "organizer",
+                table: "OrganizerSupportedCurrency",
+                column: "OrganizerId");
         }
 
         /// <inheritdoc />

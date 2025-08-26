@@ -1,30 +1,29 @@
-﻿using EventModular.Server.Modules.Discounts.Infrastructure.Services;
-using EventModular.Shared.Dtos.Discounts;
+﻿using EventModular.Server.Modules.Organizer.Infrastructure.Service;
+using EventModular.Shared.Dtos.Organizer;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EventModular.Server.Modules.Discounts.Api.Controllers;
+namespace EventModular.Server.Modules.Organizer.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]/[action]")]
-public class CampaignController : ControllerBase
+public class OrganizerProfileController : ControllerBase
 {
-    private readonly CampaignService _service;
+    private readonly IOrganizerProfileService _service;
 
-    public CampaignController(CampaignService service)
+    public OrganizerProfileController(IOrganizerProfileService service)
     {
         _service = service;
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] CampaignRequestDto input, CancellationToken cancellationToken)
+    public async Task<IActionResult> Create([FromBody] OrganizerProfileRequestDto input, CancellationToken cancellationToken)
     {
         var result = await _service.CreateAsync(input, cancellationToken);
-
         return Ok(result);
     }
 
     [HttpPut("{id:guid}")]
-    public async Task<IActionResult> Update(Guid id, [FromBody] CampaignRequestDto input, CancellationToken cancellationToken)
+    public async Task<IActionResult> Update(Guid id, [FromBody] OrganizerProfileRequestDto input, CancellationToken cancellationToken)
     {
         var result = await _service.UpdateAsync(id, input, cancellationToken);
         return Ok(result);
@@ -38,9 +37,9 @@ public class CampaignController : ControllerBase
     }
 
     [HttpGet("{id:guid}")]
-    public async Task<IActionResult> Get(Guid id, CancellationToken cancellationToken)
+    public async Task<IActionResult> GetById(Guid id, CancellationToken cancellationToken)
     {
-        var result = await _service.GetAsync(id, cancellationToken);
+        var result = await _service.GetByIdAsync(id, cancellationToken);
         return Ok(result);
     }
 
@@ -51,3 +50,4 @@ public class CampaignController : ControllerBase
         return Ok(result);
     }
 }
+

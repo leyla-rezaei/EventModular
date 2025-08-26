@@ -1,5 +1,4 @@
 ﻿using EventModular.Server.Modules.Discounts.Infrastructure.Services;
-using EventModular.Shared.Constants.Response;
 using EventModular.Shared.Dtos.Discounts;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,38 +9,49 @@ namespace EventModular.Server.Modules.Discounts.Api.Controllers;
 public class DiscountRuleController : ControllerBase
 {
     private readonly DiscountRuleService _service;
+
     public DiscountRuleController(DiscountRuleService service)
     {
         _service = service;
     }
 
     [HttpPost]
-    public Task<SingleResponse<DiscountRuleDto>> Create([FromBody] DiscountRuleDto input, CancellationToken cancellationToken)
+    public async Task<IActionResult> Create([FromBody] DiscountRuleDto input, CancellationToken cancellationToken)
     {
-        return _service.Create(input, cancellationToken);
+        var result = await _service.CreateAsync(input, cancellationToken);;
+
+        return Ok(result);
     }
 
     [HttpPut("{id:guid}")]
-    public Task<SingleResponse<DiscountRuleDto>> Update(Guid id, [FromBody] DiscountRuleDto input, CancellationToken cancellationToken)
+    public async Task<IActionResult> Update(Guid id, [FromBody] DiscountRuleDto input, CancellationToken cancellationToken)
     {
-        return _service.Update(id, input, cancellationToken);
+        var result = await _service.UpdateAsync(id, input, cancellationToken);
+
+        return Ok(result);
     }
 
     [HttpDelete("{id:guid}")]
-    public Task<JustResponse> Delete(Guid id, CancellationToken cancellationToken)
+    public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)
     {
-        return _service.Delete(id, cancellationToken);
+        var result = await _service.DeleteAsync(id, cancellationToken);
+
+        return Ok(result);
     }
 
     [HttpGet("{id:guid}")]
-    public Task<SingleResponse<DiscountRuleDto>> Get(Guid id, CancellationToken cancellationToken)
+    public async Task<IActionResult> Get(Guid id, CancellationToken cancellationToken)
     {
-        return _service.Get(id, cancellationToken);
+        var result = await _service.GetAsync(id, cancellationToken);
+
+        return Ok(result);
     }
 
     [HttpGet("campaign/{campaignId:guid}")]
-    public Task<ListResponse<DiscountRuleDto>> GetByCampaign(Guid campaignId, CancellationToken cancellationToken)
+    public async Task<IActionResult> GetByCampaign(Guid campaignId, CancellationToken cancellationToken)
     {
-        return _service.GetByCampaign(campaignId, cancellationToken);
+        var result = await _service.GetByCampaignAsync(campaignId, cancellationToken);
+
+        return Ok(result);
     }
 }

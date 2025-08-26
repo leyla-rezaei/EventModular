@@ -13,28 +13,28 @@ public class DiscountRuleService
         _mediator = mediator;
     }
 
-    public Task<SingleResponse<DiscountRuleDto>> Create(DiscountRuleDto input, CancellationToken cancellationToken)
+    public async Task<SingleResponse<DiscountRuleDto>> CreateAsync(DiscountRuleDto input, CancellationToken cancellationToken)
     {
-        return _mediator.Send(new CreateDiscountRuleCommand(input), cancellationToken);
+        return await _mediator.Send(new CreateDiscountRuleCommand(input), cancellationToken);
     } 
 
-    public Task<SingleResponse<DiscountRuleDto>> Update(Guid id, DiscountRuleDto input, CancellationToken cancellationToken)
+    public async Task<SingleResponse<DiscountRuleDto>> UpdateAsync(Guid id, DiscountRuleDto input, CancellationToken cancellationToken)
     {
-        return _mediator.Send(new UpdateDiscountRuleCommand(id, input), cancellationToken);
+        return await _mediator.Send(new UpdateDiscountRuleCommand(id, input), cancellationToken);
     } 
 
-    public Task<JustResponse> Delete(Guid id, CancellationToken cancellationToken)
+    public async Task<JustResponse> DeleteAsync(Guid id, CancellationToken cancellationToken)
     {
-        return _mediator.Send(new DeleteDiscountRuleCommand(id), cancellationToken);
+        return await _mediator.Send(new DeleteDiscountRuleCommand(id), cancellationToken);
     }
 
-    public Task<SingleResponse<DiscountRuleDto>> Get(Guid id, CancellationToken cancellationToken)
+    public async Task<SingleResponse<DiscountRuleDto>> GetAsync(Guid id, CancellationToken cancellationToken)
     {
-        return _mediator.Send(new GetDiscountRuleQuery(id), cancellationToken);
+        return await _mediator.Send(new GetDiscountRuleQuery(id), cancellationToken);
 
     }
-    public Task<ListResponse<DiscountRuleDto>> GetByCampaign(Guid campaignId, CancellationToken cancellationToken)
+    public async Task<ListResponse<DiscountRuleDto>> GetByCampaignAsync(Guid campaignId, CancellationToken cancellationToken)
     {
-        return _mediator.Send(new GetDiscountRulesByCampaignQuery(campaignId), cancellationToken);
+        return await _mediator.Send(new GetDiscountRulesByCampaignQuery(campaignId), cancellationToken);
     }  
 }
